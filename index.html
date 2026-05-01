@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mesas Boda">
+<meta name="theme-color" content="#1a0a00">
+<title>Mesas Boda 💍</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf6f0; --parch:#f2ead8; --gold:#c9963a; --gold2:#e8c97a;
+  --brown:#3d1f00; --brown2:#6b3a10; --rose:#c97a7a; --ink:#1a0a00;
+  --card:#fffdf7; --shadow:rgba(61,31,0,.15); --sel:#fff3cd; --selbdr:#c9963a;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;padding-bottom:90px;}
+
+/* HEADER */
+header{background:var(--brown);color:var(--gold2);padding:16px 14px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.4);}
+header h1{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;line-height:1.1;}
+header h1 span{color:var(--gold);font-style:italic;}
+.header-sub{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-top:2px;}
+.header-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
+#searchbox{flex:1;border:1px solid rgba(201,150,58,.4);background:rgba(255,255,255,.08);color:var(--cream);border-radius:24px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:.85rem;outline:none;}
+#searchbox::placeholder{color:rgba(250,246,240,.4);}
+#searchbox:focus{border-color:var(--gold);background:rgba(255,255,255,.13);}
+#total-badge{font-size:.7rem;background:var(--gold);color:var(--brown);border-radius:20px;padding:4px 10px;font-weight:500;white-space:nowrap;}
+
+/* SEL BAR */
+#sel-bar{display:none;position:sticky;top:108px;z-index:90;background:var(--brown2);color:var(--cream);padding:10px 14px;font-size:.84rem;border-bottom:2px solid var(--gold);align-items:center;gap:10px;}
+#sel-bar.on{display:flex;}
+#sel-name{flex:1;font-weight:500;}
+#sel-name em{font-style:normal;color:var(--gold2);}
+.pill-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:var(--cream);border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.78rem;cursor:pointer;}
+.pill-btn:active{background:rgba(255,255,255,.28);}
+
+/* MAIN */
+main{padding:13px 11px;max-width:700px;margin:0 auto;}
+
+/* MESA CARD */
+.mesa-card{background:var(--card);border-radius:14px;margin-bottom:13px;box-shadow:0 2px 10px var(--shadow);overflow:hidden;border:1.5px solid rgba(201,150,58,.18);transition:border-color .2s,box-shadow .2s;}
+.mesa-card.drop-target{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,150,58,.25);}
+.mesa-card.presid{border-color:var(--gold);background:linear-gradient(135deg,#fffdf0,#fff8e1);}
+
+.mesa-header{padding:11px 12px 9px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(201,150,58,.15);}
+.mesa-icon{font-size:1.2rem;flex-shrink:0;cursor:pointer;padding:2px 4px;border-radius:6px;}
+.mesa-icon:active{background:var(--parch);}
+.mesa-title-wrap{flex:1;min-width:0;cursor:pointer;}
+.mesa-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--brown);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mesa-title-input{display:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--brown);border:none;border-bottom:2px solid var(--gold);background:transparent;outline:none;width:100%;padding:1px 0;}
+.mesa-count{font-size:.72rem;background:var(--parch);color:var(--brown2);border-radius:20px;padding:2px 8px;font-weight:500;flex-shrink:0;}
+.presid .mesa-count{background:var(--gold2);color:var(--brown);}
+.hdr-btn{background:none;border:none;cursor:pointer;font-size:.95rem;padding:4px 5px;border-radius:7px;color:#bbb;line-height:1;flex-shrink:0;}
+.hdr-btn:active{background:var(--parch);color:var(--brown);}
+.hdr-btn.del{color:#d9a0a0;}
+.hdr-btn.del:active{color:var(--rose);}
+.chevron{color:var(--gold);font-size:.85rem;transition:transform .25s;flex-shrink:0;cursor:pointer;padding:4px;}
+.mesa-card.collapsed .chevron{transform:rotate(-90deg);}
+
+/* GUEST LIST */
+.guest-list{list-style:none;overflow:hidden;transition:max-height .3s ease;}
+.mesa-card.collapsed .guest-list{max-height:0 !important;}
+.guest-item{display:flex;align-items:center;padding:9px 13px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;transition:background .12s;gap:9px;}
+.guest-item:last-child{border-bottom:none;}
+.guest-item:active{background:var(--parch);}
+.guest-item.selected{background:var(--sel);border-left:3px solid var(--selbdr);padding-left:10px;}
+.guest-item.hidden{display:none;}
+.g-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.g-name{flex:1;font-size:.87rem;line-height:1.3;}
+.g-name-input{display:none;flex:1;border:none;border-bottom:2px solid var(--gold);background:transparent;font-family:'Jost',sans-serif;font-size:.87rem;color:var(--ink);outline:none;padding:1px 0;min-width:0;}
+.g-edit-btn{background:none;border:none;color:#ccc;font-size:.85rem;cursor:pointer;padding:3px 4px;border-radius:6px;flex-shrink:0;line-height:1;opacity:0;}
+.guest-item:hover .g-edit-btn,.guest-item:focus-within .g-edit-btn{opacity:1;}
+.g-del-btn{background:none;border:none;color:#d9a0a0;font-size:.85rem;cursor:pointer;padding:3px 4px;border-radius:6px;flex-shrink:0;line-height:1;opacity:0;}
+.guest-item:hover .g-del-btn,.guest-item:focus-within .g-del-btn{opacity:1;}
+.g-group{font-size:.68rem;color:#999;text-align:right;max-width:88px;line-height:1.2;}
+
+/* ADD GUEST ROW */
+.add-guest-row{display:flex;align-items:center;gap:8px;padding:8px 12px 9px;border-top:1px dashed rgba(201,150,58,.22);}
+.add-guest-input{flex:1;border:none;border-bottom:1px solid rgba(201,150,58,.4);background:transparent;font-family:'Jost',sans-serif;font-size:.84rem;color:var(--ink);padding:4px 2px;outline:none;}
+.add-guest-input::placeholder{color:#ccc;}
+.add-guest-btn{background:var(--gold);color:var(--brown);border:none;border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;white-space:nowrap;}
+.add-guest-btn:active{opacity:.8;}
+
+/* MOVE BTN */
+.move-btn{display:none;width:100%;padding:10px;background:var(--brown);color:var(--gold2);border:none;font-family:'Cormorant Garamond',serif;font-size:.98rem;letter-spacing:.04em;cursor:pointer;transition:background .15s;}
+.move-btn:active{background:var(--brown2);}
+body.has-sel .move-btn{display:block;}
+body.has-sel .source-mesa .move-btn{display:none;}
+
+/* UNDO TOAST */
+#undo-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--brown);color:var(--cream);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:.83rem;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:300;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+#undo-toast.show{transform:translateX(-50%) translateY(0);}
+#undo-btn{background:var(--gold);color:var(--brown);border:none;border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;}
+
+/* FAB */
+#fab-row{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:9px;z-index:200;align-items:flex-end;}
+.fab{border:none;border-radius:50px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:500;box-shadow:0 3px 14px rgba(0,0,0,.3);display:flex;align-items:center;gap:6px;transition:transform .15s;}
+.fab:active{transform:scale(.94);}
+#fab-add{background:var(--brown);color:var(--gold2);padding:11px 18px 11px 14px;font-size:.85rem;}
+#fab-reset{background:var(--rose);color:#fff;padding:10px 16px 10px 12px;font-size:.82rem;}
+
+/* MODAL */
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:flex-end;justify-content:center;}
+#modal-overlay.on{display:flex;}
+#modal{background:var(--card);border-radius:20px 20px 0 0;padding:22px 18px 34px;width:100%;max-width:500px;animation:sup .25s ease;}
+@keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+#modal h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--brown);margin-bottom:16px;}
+.m-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:#999;margin-bottom:4px;}
+.m-input{width:100%;border:1px solid rgba(201,150,58,.4);border-radius:10px;padding:10px 13px;font-family:'Jost',sans-serif;font-size:.95rem;color:var(--ink);background:var(--cream);outline:none;margin-bottom:14px;}
+.m-input:focus{border-color:var(--gold);}
+.icon-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-bottom:18px;}
+.icon-opt{font-size:1.3rem;text-align:center;padding:6px 2px;border-radius:9px;cursor:pointer;border:2px solid transparent;transition:border-color .15s,background .15s;}
+.icon-opt.picked{border-color:var(--gold);background:var(--parch);}
+.modal-actions{display:flex;gap:10px;}
+.modal-btn{flex:1;border:none;border-radius:12px;padding:13px;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;}
+.modal-btn.cancel{background:var(--parch);color:var(--brown2);}
+.modal-btn.confirm{background:var(--brown);color:var(--gold2);}
+.modal-btn:active{opacity:.85;}
+
+.empty-msg{text-align:center;padding:40px 20px;color:#bbb;font-family:'Cormorant Garamond',serif;font-size:1.2rem;display:none;}
+.mesa-card.search-hidden{display:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💍 Boda <span>Serena & Antonio</span></h1>
+  <div class="header-sub">Distribución de mesas</div>
+  <div class="header-row">
+    <input id="searchbox" type="search" placeholder="Buscar invitado…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <span id="total-badge">— invitados</span>
+  </div>
+</header>
+
+<div id="sel-bar">
+  <span id="sel-name"></span>
+  <button class="pill-btn" id="cancel-sel-btn">✕ Cancelar</button>
+</div>
+
+<main id="mc">
+  <p class="empty-msg" id="empty-msg">No se encontraron invitados</p>
+</main>
+
+<div id="undo-toast">
+  <span id="undo-msg"></span>
+  <button id="undo-btn">Deshacer</button>
+</div>
+
+<div id="fab-row">
+  <button class="fab" id="fab-add">＋ Nueva mesa</button>
+  <button class="fab" id="fab-reset">↺ Restaurar</button>
+</div>
+
+<div id="modal-overlay">
+  <div id="modal">
+    <h2 id="modal-title">Nueva mesa</h2>
+    <div id="name-wrap">
+      <div class="m-label">Nombre de la mesa</div>
+      <input class="m-input" id="modal-name" type="text" placeholder="Ej: Mesa 21 – Extra">
+    </div>
+    <div class="m-label">Icono</div>
+    <div class="icon-grid" id="icon-grid"></div>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="modal-cancel">Cancelar</button>
+      <button class="modal-btn confirm" id="modal-confirm">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const GC = {"Nosotros":"#FFD700","Familia Antonio Jiménez":"#FFCBA4","Familia Serena Gómez":"#C8B4E8","Amigos Barcelona":"#7EC8E3","Amigos Comunes":"#88C98A","Amigos Coruña":"#A8D880","Amigos Granada":"#FFB08A","Amigos PDF":"#F4A0B5","Amigos Ponferrada":"#C49ED8","Amigos Serena Gómez":"#6FD8E4","Amigos Sueltos":"#FFE87A","Amigos Tenerife":"#FFD085","Amolaeras":"#BCAAA4","Trabajo Antonio":"#B0BEC5","Trabajo Serena Gómez":"#D4E157"};
+const ICONS=["🎉","🌸","💍","👑","🌿","🍾","🎶","🌺","💜","🧡","🌟","☀️","🌻","🍊","🏔️","🌴","🎊","🎸","🫶","💼","🤝","🌆","🌍","📄","🌙","🕊️","🦋","🌹","✨","🥂","🎀","🎁","🪷","🫧","🌈","⭐","🔮","🎠"];
+
+const INITIAL=[
+  {id:"presidencial",name:"Mesa Presidencial",icon:"👑",presid:true,guests:[{name:"Serena Gómez Blanco",group:"Nosotros"},{name:"Antonio Jiménez Gálvez",group:"Nosotros"},{name:"María Pilar Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Juan Jiménez Gálvez",group:"Familia Antonio Jiménez"},{name:"Jose Antonio Rodríguez Vega",group:"Familia Serena Gómez"},{name:"Silvia Rivera",group:"Familia Serena Gómez"}]},
+  {id:"trabajo_antonio",name:"Mesa Trabajo Antonio",icon:"💼",guests:[{name:"Rodrigo Spagna",group:"Trabajo Antonio"},{name:"Marta Roizo",group:"Trabajo Antonio"},{name:"Patricia Carrilero",group:"Trabajo Antonio"},{name:"Antonia Ballesteros",group:"Trabajo Antonio"},{name:"Jesús Diaz",group:"Trabajo Antonio"},{name:"Patricia Diaz",group:"Trabajo Antonio"}]},
+  {id:"m01",name:"Mesa 1 – Amigos Barcelona A",icon:"🌆",guests:[{name:"Isaac Guerrero Dotel",group:"Amigos Barcelona"},{name:"Moritz (Isaac)",group:"Amigos Barcelona"},{name:"Elena Esteban",group:"Amigos Barcelona"},{name:"Ágatha Elena",group:"Amigos Barcelona"},{name:"Manel Garrigó",group:"Amigos Barcelona"},{name:"Arriana Leyva Hernández",group:"Amigos Barcelona"},{name:"Mathi Dovale",group:"Amigos Barcelona"},{name:"(Novia de Mathi)",group:"Amigos Barcelona"}]},
+  {id:"m02",name:"Mesa 2 – Amigos Barcelona B + Comunes",icon:"🤝",guests:[{name:"Adriano Lamas",group:"Amigos Barcelona"},{name:"Martín Luengo",group:"Amigos Barcelona"},{name:"Manuel Céspedes",group:"Amigos Comunes"},{name:"Andrés Aldaz",group:"Amigos Comunes"},{name:"Bárbara Tassan",group:"Amigos Comunes"},{name:"Jordi Bruix",group:"Amigos Comunes"},{name:"Raiza Barnett",group:"Amigos Comunes"},{name:"Jose Bacca",group:"Amigos Comunes"}]},
+  {id:"m03",name:"Mesa 3 – Comunes + Coruña + Sueltos + Tenerife",icon:"🌍",guests:[{name:"Fran Méndez González",group:"Amigos Comunes"},{name:"Inés Salcines",group:"Amigos Coruña"},{name:"Elena Del Río",group:"Amigos Coruña"},{name:"Maximiliano Rosas",group:"Amigos Sueltos"},{name:"Debora (Maxi)",group:"Amigos Sueltos"},{name:"Ángel Molina",group:"Amigos Sueltos"},{name:"Angel Adan",group:"Amigos Tenerife"},{name:"Beatriz García",group:"Amigos Tenerife"}]},
+  {id:"m04",name:"Mesa 4 – Tenerife + Trabajo Serena + PDF",icon:"🌴",guests:[{name:"Sergio (Medusa)",group:"Amigos Tenerife"},{name:"Ana (Sergio)",group:"Amigos Tenerife"},{name:"Luciana Comastri",group:"Trabajo Serena Gómez"},{name:"Felipe Ragel",group:"Trabajo Serena Gómez"},{name:"Pablo Carballo",group:"Trabajo Serena Gómez"},{name:"Eva",group:"Trabajo Serena Gómez"},{name:"Anabel Macías Oviedo",group:"Amigos PDF"},{name:"Adrían Fernández",group:"Amigos PDF"}]},
+  {id:"m05",name:"Mesa 5 – Amigos PDF + Ponferrada",icon:"📄",guests:[{name:"Esther Martín",group:"Amigos PDF"},{name:"Miguel Esther",group:"Amigos PDF"},{name:"Laura Martínez",group:"Amigos PDF"},{name:"Joaquín Ruíz",group:"Amigos PDF"},{name:"Alba Mateos García",group:"Amigos Ponferrada"},{name:"Juan Bacca",group:"Amigos Ponferrada"},{name:"María Jáñez",group:"Amigos Ponferrada"},{name:"Lucia Susial",group:"Amigos Ponferrada"}]},
+  {id:"m06",name:"Mesa 6 – Amigos Serena A",icon:"🌸",guests:[{name:"Tamara Marqués Rodríguez",group:"Amigos Serena Gómez"},{name:"Isabel Gómez Bacariza",group:"Amigos Serena Gómez"},{name:"Mónica Voces Vega",group:"Amigos Serena Gómez"},{name:"Ángel Crespo",group:"Amigos Serena Gómez"},{name:"Noelia Perez",group:"Amigos Serena Gómez"},{name:"Pedro Buesa",group:"Amigos Serena Gómez"},{name:"Gonzalo Buesa Pérez",group:"Amigos Serena Gómez"},{name:"Victoria Basante",group:"Amigos Serena Gómez"}]},
+  {id:"m07",name:"Mesa 7 – Amigos Serena B + Familia Serena",icon:"🌿",guests:[{name:"Eduardo Gete Puente",group:"Amigos Serena Gómez"},{name:"Paula Abraila",group:"Amigos Serena Gómez"},{name:"Marta Jutglar",group:"Amigos Serena Gómez"},{name:"Emiliano Macías",group:"Amigos Serena Gómez"},{name:"Pilar Berges Périz",group:"Amigos Serena Gómez"},{name:"Marta",group:"Amigos Serena Gómez"},{name:"Beatriz Morán Delgado",group:"Familia Serena Gómez"},{name:"Antonio Morán Delgado",group:"Familia Serena Gómez"}]},
+  {id:"m08",name:"Mesa 8 – Familia Serena A",icon:"💜",guests:[{name:"Rosa María Blanco Delgado",group:"Familia Serena Gómez"},{name:"María de los Ángeles Blanco Delgado",group:"Familia Serena Gómez"},{name:"Daniel Blanco Delgado",group:"Familia Serena Gómez"},{name:"Iker Blanco Rivera",group:"Familia Serena Gómez"},{name:"Alfredo Gómez Álvarez",group:"Familia Serena Gómez"},{name:"Yann Gómez Gabaldón",group:"Familia Serena Gómez"},{name:"Alison Gómez Gabaldón",group:"Familia Serena Gómez"},{name:"Miguel Ángel Cabo Álvarez",group:"Familia Serena Gómez"}]},
+  {id:"m09",name:"Mesa 9 – Amigos Granada A",icon:"🌺",guests:[{name:"Alvaro Castillo",group:"Amigos Granada"},{name:"Claudia (Alvaro)",group:"Amigos Granada"},{name:"Andrea Delgado",group:"Amigos Granada"},{name:"Ángel Aguilera",group:"Amigos Granada"},{name:"Javier Pleguezuelos",group:"Amigos Granada"},{name:"(Novia de Javi)",group:"Amigos Granada"},{name:"Jesús Villar",group:"Amigos Granada"},{name:"Claudia (Jesús)",group:"Amigos Granada"}]},
+  {id:"m10",name:"Mesa 10 – Amigos Granada B",icon:"🏔️",guests:[{name:"Mario Sanchez Samos",group:"Amigos Granada"},{name:"Pilar Fernández Márquez",group:"Amigos Granada"},{name:"Javier Valenzuela Rivero",group:"Amigos Granada"},{name:"Teresa Muros",group:"Amigos Granada"},{name:"(Pareja de Teresa)",group:"Amigos Granada"},{name:"Miguel Angel Gonzalez Piqueras",group:"Amigos Granada"},{name:"Néstor Heras Jiménez",group:"Amigos Granada"},{name:"Marina Mármol",group:"Amigos Granada"}]},
+  {id:"m11",name:"Mesa 11 – Amolaeras A",icon:"🎉",guests:[{name:"Ramón Martín",group:"Amolaeras"},{name:"Olga Reyes",group:"Amolaeras"},{name:"Patricia Martín",group:"Amolaeras"},{name:"Ayiyo (Patri)",group:"Amolaeras"},{name:"Angela Martín Reyes",group:"Amolaeras"},{name:"Jose Carlos Gómez Rodríguez",group:"Amolaeras"},{name:"Antonio Jiménez Bautista",group:"Amolaeras"},{name:"Adelina del Moral",group:"Amolaeras"}]},
+  {id:"m12",name:"Mesa 12 – Amolaeras B",icon:"🎊",guests:[{name:"María Jiménez del Moral",group:"Amolaeras"},{name:"Manu (María)",group:"Amolaeras"},{name:"Mariano Aguilera",group:"Amolaeras"},{name:"Adeli Pérez",group:"Amolaeras"},{name:"Belén Aguilera Pérez",group:"Amolaeras"},{name:"Alberto Benitez",group:"Amolaeras"},{name:"Adeli Aguilera Pérez",group:"Amolaeras"},{name:"Sergio López",group:"Amolaeras"}]},
+  {id:"m13",name:"Mesa 13 – Amolaeras C",icon:"🎶",guests:[{name:"Juan Rey",group:"Amolaeras"},{name:"Juanillo Rey",group:"Amolaeras"},{name:"Juanfran Rodriguez",group:"Amolaeras"},{name:"Encarni Ibañez",group:"Amolaeras"},{name:"Paula Rodriguez Ibañez",group:"Amolaeras"},{name:"Mario Rodriguez Ibañez",group:"Amolaeras"},{name:"Marina Jaubert",group:"Amolaeras"},{name:"Jose Espejo Montenegro",group:"Amolaeras"}]},
+  {id:"m14",name:"Mesa 14 – Amolaeras D",icon:"🎸",guests:[{name:"Encarni Ortega",group:"Amolaeras"},{name:"Pepe Espejo",group:"Amolaeras"},{name:"Pique",group:"Amolaeras"},{name:"Juan Manuel (Pique)",group:"Amolaeras"},{name:"Julia (Julilli)",group:"Amolaeras"},{name:"Jaime (Julilli)",group:"Amolaeras"},{name:"Juan (Julilli)",group:"Amolaeras"},{name:"Pepa Jiménez",group:"Amolaeras"}]},
+  {id:"m15",name:"Mesa 15 – Amolaeras E + Granada",icon:"🫶",guests:[{name:"Fermín Nogales",group:"Amolaeras"},{name:"Maria José Nogales Jiménez",group:"Amolaeras"},{name:"Fermín Nogales Jiménez",group:"Amolaeras"},{name:"Antonio Jiménez Martín",group:"Amolaeras"},{name:"Mercedes (Antoñín)",group:"Amolaeras"},{name:"María Jiménez",group:"Amolaeras"},{name:"Rafa Rey Padre",group:"Amolaeras"},{name:"Carmen Novia Marina",group:"Amigos Granada"}]},
+  {id:"m16",name:"Mesa 16 – Familia Antonio A",icon:"🧡",guests:[{name:"Antonio José Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Azul Krywyk Berruezo",group:"Familia Antonio Jiménez"},{name:"Cielo Krywyk Jiménez",group:"Familia Antonio Jiménez"},{name:"Pili Jiménez Gálvez",group:"Familia Antonio Jiménez"},{name:"Sergio Fabregat",group:"Familia Antonio Jiménez"},{name:"Rafael Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Rosa Espejo Montenegro",group:"Familia Antonio Jiménez"},{name:"Rafael Jiménez Espejo",group:"Familia Antonio Jiménez"}]},
+  {id:"m17",name:"Mesa 17 – Familia Antonio B",icon:"🍊",guests:[{name:"Maria José Haro Escobar",group:"Familia Antonio Jiménez"},{name:"Jose Antonio Jiménez Espejo",group:"Familia Antonio Jiménez"},{name:"Isabel (Jose Antonio)",group:"Familia Antonio Jiménez"},{name:"Loli Jiménez Espejo",group:"Familia Antonio Jiménez"},{name:"Guillem Pérez Villanueva",group:"Familia Antonio Jiménez"},{name:"Loli Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Jose Luis Gálvez (Padre)",group:"Familia Antonio Jiménez"},{name:"Jose Luis Gálvez Jiménez",group:"Familia Antonio Jiménez"}]},
+  {id:"m18",name:"Mesa 18 – Familia Antonio C",icon:"🌻",guests:[{name:"Gabi Morante Gómez",group:"Familia Antonio Jiménez"},{name:"Antonia Gálvez Moreno",group:"Familia Antonio Jiménez"},{name:"Juan Antonio Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Inma Ortega",group:"Familia Antonio Jiménez"},{name:"Sergio Gálvez Ortega",group:"Familia Antonio Jiménez"},{name:"Pablo Gálvez Ortega",group:"Familia Antonio Jiménez"},{name:"Trini Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Antonio Moreno Gálvez",group:"Familia Antonio Jiménez"}]},
+  {id:"m19",name:"Mesa 19 – Familia Antonio D",icon:"☀️",guests:[{name:"Julia Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Perea",group:"Familia Antonio Jiménez"},{name:"Julia Perea Gálvez",group:"Familia Antonio Jiménez"},{name:"Ander (Julia)",group:"Familia Antonio Jiménez"},{name:"Daniel Perea Gálvez",group:"Familia Antonio Jiménez"},{name:"Virginia Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Javier Toledo",group:"Familia Antonio Jiménez"},{name:"Virginia Toledo Gálvez",group:"Familia Antonio Jiménez"}]},
+  {id:"m20",name:"Mesa 20 – Familia Antonio E + Familia Serena B",icon:"🌟",guests:[{name:"Lucas Toledo Gálvez",group:"Familia Antonio Jiménez"},{name:"Jose Manuel Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Alicia Martinez",group:"Familia Antonio Jiménez"},{name:"Yannick Gálvez Martinez",group:"Familia Antonio Jiménez"},{name:"Levi Gálvez Martinez",group:"Familia Antonio Jiménez"},{name:"Ana Álvarez García",group:"Familia Serena Gómez"},{name:"Jose García Álvarez",group:"Familia Serena Gómez"},{name:"Marta Domínguez Corredera",group:"Familia Serena Gómez"},{name:"Iker García Domínguez",group:"Familia Serena Gómez"}]},
+];
+
+const SK="boda_mesas_v2";
+const deep=x=>JSON.parse(JSON.stringify(x));
+const uid=()=>"m"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+function load(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s);}catch(e){}return deep(INITIAL);}
+function save(){localStorage.setItem(SK,JSON.stringify(mesas));}
+
+let mesas=load(), selGuest=null, lastAction=null, undoTimer=null, collapsed=new Set();
+
+const mc=document.getElementById("mc");
+const badge=document.getElementById("total-badge");
+const selBar=document.getElementById("sel-bar");
+const selNameEl=document.getElementById("sel-name");
+
+// ── RENDER ──────────────────────────────────
+function render(){
+  mc.querySelectorAll(".mesa-card").forEach(e=>e.remove());
+  badge.textContent=mesas.reduce((s,m)=>s+m.guests.length,0)+" invitados";
+
+  mesas.forEach(mesa=>{
+    const card=document.createElement("div");
+    card.className="mesa-card"+(mesa.presid?" presid":"")+(collapsed.has(mesa.id)?" collapsed":"");
+    if(selGuest){
+      card.classList.add(selGuest.fromId===mesa.id?"source-mesa":"drop-target");
+    }
+    card.dataset.id=mesa.id;
+
+    // Header
+    const hdr=document.createElement("div");
+    hdr.className="mesa-header";
+
+    const iconEl=document.createElement("span");
+    iconEl.className="mesa-icon"; iconEl.textContent=mesa.icon; iconEl.title="Cambiar icono";
+    iconEl.addEventListener("click",e=>{e.stopPropagation();openModal(mesa.id);});
+
+    const tw=document.createElement("div"); tw.className="mesa-title-wrap";
+    const titleEl=document.createElement("div"); titleEl.className="mesa-title"; titleEl.textContent=mesa.name;
+    const titleIn=document.createElement("input"); titleIn.className="mesa-title-input"; titleIn.value=mesa.name;
+    tw.append(titleEl,titleIn);
+    let pt; tw.addEventListener("touchstart",()=>{pt=setTimeout(()=>startRen(mesa.id,titleEl,titleIn),500);});
+    tw.addEventListener("touchend",()=>clearTimeout(pt));
+    tw.addEventListener("touchmove",()=>clearTimeout(pt));
+    tw.addEventListener("dblclick",()=>startRen(mesa.id,titleEl,titleIn));
+    tw.addEventListener("click",()=>toggleCol(mesa.id,card));
+    titleIn.addEventListener("blur",()=>finishRen(mesa.id,titleEl,titleIn));
+    titleIn.addEventListener("keydown",e=>{if(e.key==="Enter")titleIn.blur();if(e.key==="Escape"){titleIn.value=mesa.name;titleIn.blur();}});
+
+    const cnt=document.createElement("span"); cnt.className="mesa-count"; cnt.textContent=mesa.guests.length;
+
+    const editBtn=document.createElement("button"); editBtn.className="hdr-btn"; editBtn.textContent="✏️"; editBtn.title="Renombrar";
+    editBtn.addEventListener("click",e=>{e.stopPropagation();startRen(mesa.id,titleEl,titleIn);});
+
+    const delBtn=document.createElement("button"); delBtn.className="hdr-btn del"; delBtn.textContent="🗑"; delBtn.title="Eliminar mesa";
+    delBtn.addEventListener("click",e=>{e.stopPropagation();deleteMesa(mesa.id);});
+
+    const chev=document.createElement("span"); chev.className="chevron"; chev.textContent="▾";
+    chev.addEventListener("click",e=>{e.stopPropagation();toggleCol(mesa.id,card);});
+
+    hdr.append(iconEl,tw,cnt,editBtn,delBtn,chev);
+    card.appendChild(hdr);
+
+    // Guest list
+    const ul=document.createElement("ul"); ul.className="guest-list";
+    ul.style.maxHeight=collapsed.has(mesa.id)?"0":(mesa.guests.length*46+68)+"px";
+
+    mesa.guests.forEach(g=>{
+      const li=document.createElement("li");
+      li.className="guest-item"+(selGuest&&selGuest.name===g.name&&selGuest.fromId===mesa.id?" selected":"");
+      const col=GC[g.group]||"#ccc";
+
+      const dot=document.createElement("span"); dot.className="g-dot"; dot.style.background=col;
+      const nameEl=document.createElement("span"); nameEl.className="g-name"; nameEl.textContent=g.name;
+      const nameIn=document.createElement("input"); nameIn.className="g-name-input"; nameIn.value=g.name; nameIn.type="text";
+      const grpEl=document.createElement("span"); grpEl.className="g-group"; grpEl.textContent=g.group;
+
+      // edit button (pencil) — always visible on mobile long-press, hover on desktop
+      const editGBtn=document.createElement("button"); editGBtn.className="g-edit-btn"; editGBtn.textContent="✏️"; editGBtn.title="Editar nombre";
+      editGBtn.addEventListener("click",e=>{e.stopPropagation();startGuestRen(nameEl,nameIn,grpEl,editGBtn,delGBtn);});
+
+      // delete button
+      const delGBtn=document.createElement("button"); delGBtn.className="g-del-btn"; delGBtn.textContent="✕"; delGBtn.title="Eliminar invitado";
+      delGBtn.addEventListener("click",e=>{e.stopPropagation();deleteGuest(mesa.id,g.name);});
+
+      // long-press to edit on mobile
+      let gpt; li.addEventListener("touchstart",()=>{gpt=setTimeout(()=>startGuestRen(nameEl,nameIn,grpEl,editGBtn,delGBtn),500);});
+      li.addEventListener("touchend",()=>clearTimeout(gpt)); li.addEventListener("touchmove",()=>clearTimeout(gpt));
+
+      nameIn.addEventListener("blur",()=>finishGuestRen(mesa.id,g,nameEl,nameIn,grpEl,editGBtn,delGBtn));
+      nameIn.addEventListener("keydown",e=>{
+        if(e.key==="Enter")nameIn.blur();
+        if(e.key==="Escape"){nameIn.value=g.name;nameIn.blur();}
+      });
+
+      li.addEventListener("click",()=>{if(nameIn.style.display==="block")return;onGuestTap(g,mesa.id);});
+      li.append(dot,nameEl,nameIn,grpEl,editGBtn,delGBtn);
+      ul.appendChild(li);
+    });
+
+    // Add guest row
+    const ar=document.createElement("div"); ar.className="add-guest-row";
+    const ai=document.createElement("input"); ai.className="add-guest-input"; ai.type="text"; ai.placeholder="Añadir invitado…";
+    const ab=document.createElement("button"); ab.className="add-guest-btn"; ab.textContent="+ Añadir";
+    ab.addEventListener("click",()=>addGuest(mesa.id,ai));
+    ai.addEventListener("keydown",e=>{if(e.key==="Enter")addGuest(mesa.id,ai);});
+    ar.append(ai,ab); ul.appendChild(ar);
+    card.appendChild(ul);
+
+    // Move btn
+    const mb=document.createElement("button"); mb.className="move-btn";
+    mb.textContent=`↪ Mover aquí — ${mesa.name.split("–")[0].trim()}`;
+    mb.addEventListener("click",()=>moveSelTo(mesa.id));
+    card.appendChild(mb);
+
+    mc.insertBefore(card,document.getElementById("empty-msg"));
+  });
+
+  if(selGuest){
+    document.body.classList.add("has-sel");
+    selNameEl.innerHTML=`Moviendo: <em>${selGuest.name}</em>`;
+    selBar.classList.add("on");
+  } else {
+    document.body.classList.remove("has-sel");
+    selBar.classList.remove("on");
+  }
+}
+
+function toggleCol(id,card){
+  const ul=card.querySelector(".guest-list");
+  const mesa=mesas.find(m=>m.id===id);
+  if(collapsed.has(id)){collapsed.delete(id);card.classList.remove("collapsed");ul.style.maxHeight=(mesa.guests.length*46+68)+"px";}
+  else{collapsed.add(id);card.classList.add("collapsed");ul.style.maxHeight="0";}
+}
+
+// ── RENAME ──────────────────────────────────
+function startRen(id,titleEl,input){titleEl.style.display="none";input.style.display="block";input.focus();input.select();}
+function finishRen(id,titleEl,input){
+  const v=input.value.trim();
+  if(v){const m=mesas.find(m=>m.id===id);m.name=v;save();}
+  input.style.display="none";titleEl.style.display="";render();
+}
+
+// ── MODAL (add mesa / change icon) ──────────
+let modalId=null, pickedIcon="🎉";
+function buildGrid(){
+  const g=document.getElementById("icon-grid"); g.innerHTML="";
+  ICONS.forEach(ic=>{
+    const d=document.createElement("div"); d.className="icon-opt"+(ic===pickedIcon?" picked":""); d.textContent=ic;
+    d.addEventListener("click",()=>{pickedIcon=ic;g.querySelectorAll(".icon-opt").forEach(x=>x.classList.remove("picked"));d.classList.add("picked");});
+    g.appendChild(d);
+  });
+}
+function openModal(existId){
+  modalId=existId||null;
+  const nw=document.getElementById("name-wrap");
+  const ni=document.getElementById("modal-name");
+  if(existId){
+    document.getElementById("modal-title").textContent="Cambiar icono";
+    nw.style.display="none"; pickedIcon=mesas.find(m=>m.id===existId).icon;
+  } else {
+    document.getElementById("modal-title").textContent="Nueva mesa";
+    nw.style.display=""; ni.value=""; pickedIcon="🎉";
+  }
+  buildGrid();
+  document.getElementById("modal-overlay").classList.add("on");
+  if(!existId) setTimeout(()=>ni.focus(),120);
+}
+document.getElementById("modal-confirm").addEventListener("click",()=>{
+  if(modalId){mesas.find(m=>m.id===modalId).icon=pickedIcon;save();}
+  else{
+    const name=document.getElementById("modal-name").value.trim();
+    if(!name)return;
+    mesas.push({id:uid(),name,icon:pickedIcon,guests:[]});
+    save();
+  }
+  document.getElementById("modal-overlay").classList.remove("on");
+  render();
+});
+document.getElementById("modal-cancel").addEventListener("click",()=>document.getElementById("modal-overlay").classList.remove("on"));
+document.getElementById("modal-overlay").addEventListener("click",e=>{if(e.target===document.getElementById("modal-overlay"))document.getElementById("modal-overlay").classList.remove("on");});
+document.getElementById("fab-add").addEventListener("click",()=>openModal(null));
+
+// ── DELETE MESA ─────────────────────────────
+function deleteMesa(id){
+  const mesa=mesas.find(m=>m.id===id);
+  const msg=mesa.guests.length>0
+    ?`¿Eliminar "${mesa.name}" con ${mesa.guests.length} invitado(s)? Los invitados se perderán.`
+    :`¿Eliminar la mesa "${mesa.name}"?`;
+  if(!confirm(msg))return;
+  lastAction={type:"del",mesa:deep(mesa),idx:mesas.findIndex(m=>m.id===id)};
+  mesas=mesas.filter(m=>m.id!==id); save();
+  showUndo(`Mesa "${mesa.name}" eliminada`); render();
+}
+
+// ── ADD GUEST ───────────────────────────────
+function addGuest(mesaId,input){
+  const name=input.value.trim(); if(!name)return;
+  const mesa=mesas.find(m=>m.id===mesaId);
+  mesa.guests.push({name,group:"—"});
+  lastAction={type:"add",mesaId,name}; save(); input.value="";
+  collapsed.delete(mesaId);
+  showUndo(`${name} añadido/a`); render();
+}
+
+// ── GUEST RENAME ────────────────────────────
+function startGuestRen(nameEl,nameIn,grpEl,editBtn,delBtn){
+  nameEl.style.display="none"; grpEl.style.display="none";
+  editBtn.style.display="none"; delBtn.style.display="none";
+  nameIn.style.display="block"; nameIn.focus(); nameIn.select();
+}
+function finishGuestRen(mesaId,g,nameEl,nameIn,grpEl,editBtn,delBtn){
+  const newName=nameIn.value.trim();
+  if(newName && newName!==g.name){
+    // update in state
+    const mesa=mesas.find(m=>m.id===mesaId);
+    const guest=mesa.guests.find(x=>x.name===g.name);
+    if(guest){
+      lastAction={type:"rename",mesaId,oldName:g.name,newName};
+      guest.name=newName; g.name=newName;
+      save(); showUndo(`Nombre cambiado a "${newName}"`);
+    }
+  }
+  nameIn.style.display="none"; grpEl.style.display=""; editBtn.style.display=""; delBtn.style.display="";
+  nameEl.textContent=g.name; nameEl.style.display="";
+}
+
+// ── GUEST DELETE ────────────────────────────
+function deleteGuest(mesaId,guestName){
+  if(!confirm(`¿Eliminar a "${guestName}" de la lista?`))return;
+  const mesa=mesas.find(m=>m.id===mesaId);
+  const idx=mesa.guests.findIndex(g=>g.name===guestName); if(idx===-1)return;
+  const[removed]=mesa.guests.splice(idx,1);
+  lastAction={type:"del-guest",mesaId,guest:removed,idx};
+  save(); showUndo(`"${guestName}" eliminado/a`); render();
+}
+
+// ── MOVE GUESTS ─────────────────────────────
+function onGuestTap(guest,mesaId){
+  if(selGuest){
+    if(selGuest.name===guest.name&&selGuest.fromId===mesaId){selGuest=null;render();return;}
+    if(selGuest.fromId!==mesaId){moveSelTo(mesaId);return;}
+  }
+  selGuest={name:guest.name,group:guest.group,fromId:mesaId};
+  collapsed.forEach(id=>{if(id!==mesaId)collapsed.delete(id);});
+  render();
+}
+function moveSelTo(toId){
+  if(!selGuest||selGuest.fromId===toId)return;
+  const from=mesas.find(m=>m.id===selGuest.fromId), to=mesas.find(m=>m.id===toId);
+  const idx=from.guests.findIndex(g=>g.name===selGuest.name); if(idx===-1)return;
+  const[g]=from.guests.splice(idx,1); to.guests.push(g);
+  lastAction={type:"move",guest:g,fromId:selGuest.fromId,toId}; save();
+  showUndo(`${g.name} → ${to.name.split("–")[0].trim()}`);
+  selGuest=null; render();
+}
+document.getElementById("cancel-sel-btn").addEventListener("click",()=>{selGuest=null;render();});
+
+// ── UNDO ────────────────────────────────────
+function showUndo(msg){
+  document.getElementById("undo-msg").textContent=msg;
+  document.getElementById("undo-toast").classList.add("show");
+  clearTimeout(undoTimer);
+  undoTimer=setTimeout(()=>document.getElementById("undo-toast").classList.remove("show"),4500);
+}
+document.getElementById("undo-btn").addEventListener("click",()=>{
+  if(!lastAction)return;
+  const a=lastAction; lastAction=null;
+  if(a.type==="move"){
+    const to=mesas.find(m=>m.id===a.toId),from=mesas.find(m=>m.id===a.fromId);
+    const i=to.guests.findIndex(g=>g.name===a.guest.name);
+    if(i!==-1){to.guests.splice(i,1);from.guests.push(a.guest);}
+  } else if(a.type==="add"){
+    const m=mesas.find(m=>m.id===a.mesaId);
+    if(m){const i=m.guests.findIndex(g=>g.name===a.name);if(i!==-1)m.guests.splice(i,1);}
+  } else if(a.type==="del"){
+    mesas.splice(a.idx,0,a.mesa);
+  } else if(a.type==="rename"){
+    const m=mesas.find(m=>m.id===a.mesaId);
+    if(m){const g=m.guests.find(g=>g.name===a.newName);if(g)g.name=a.oldName;}
+  } else if(a.type==="del-guest"){
+    const m=mesas.find(m=>m.id===a.mesaId);
+    if(m)m.guests.splice(a.idx,0,a.guest);
+  }
+  save(); document.getElementById("undo-toast").classList.remove("show"); render();
+});
+
+// ── SEARCH ──────────────────────────────────
+document.getElementById("searchbox").addEventListener("input",function(){
+  const q=this.value.trim().toLowerCase();
+  mc.querySelectorAll(".mesa-card").forEach(card=>{
+    const items=card.querySelectorAll(".guest-item"); let hit=false;
+    items.forEach(li=>{const m=!q||li.textContent.toLowerCase().includes(q);li.classList.toggle("hidden",!m);if(m)hit=true;});
+    card.classList.toggle("search-hidden",q&&!hit);
+    if(q&&hit){const id=card.dataset.id,ul=card.querySelector(".guest-list"),mesa=mesas.find(m=>m.id===id);collapsed.delete(id);card.classList.remove("collapsed");ul.style.maxHeight=(mesa.guests.length*46+68)+"px";}
+  });
+  document.getElementById("empty-msg").style.display=(q&&!mc.querySelector(".mesa-card:not(.search-hidden)"))?"block":"none";
+});
+
+// ── RESET ───────────────────────────────────
+document.getElementById("fab-reset").addEventListener("click",()=>{
+  if(!confirm("¿Restaurar la distribución original? Se perderán todos los cambios."))return;
+  localStorage.removeItem(SK); mesas=deep(INITIAL); selGuest=null; lastAction=null; collapsed.clear(); render();
+});
+
+render();
+</script>
+</body>
+</html>

@@ -8,447 +8,460 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mesas Boda">
 <meta name="theme-color" content="#3d1f00">
-<title>Mesas Boda 💍</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Mesas Boda</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#faf6f0;--parch:#f2ead8;--gold:#c9963a;--gold2:#e8c97a;--brown:#3d1f00;--brown2:#6b3a10;--rose:#c97a7a;--ink:#1a0a00;--card:#fffdf7;--shadow:rgba(61,31,0,.15);--sel:#fff3cd;--selbdr:#c9963a;}
+:root{--cream:#faf6f0;--parch:#f2ead8;--gold:#c9963a;--gold2:#e8c97a;--brown:#3d1f00;--brown2:#6b3a10;--rose:#c97a7a;--ink:#1a0a00;--card:#fffdf7;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;}
-#app-header{background:var(--brown);color:var(--gold2);padding:14px 14px 0;flex-shrink:0;box-shadow:0 2px 14px rgba(0,0,0,.5);z-index:100;position:relative;}
-#app-header h1{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;letter-spacing:.06em;line-height:1.1;}
-#app-header h1 span{color:var(--gold);font-style:italic;}
-.header-sub{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:1px;}
-.header-row{display:flex;align-items:center;gap:8px;margin-top:9px;}
-#searchbox{flex:1;border:1px solid rgba(201,150,58,.4);background:rgba(255,255,255,.08);color:var(--cream);border-radius:24px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:.85rem;outline:none;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);}
+
+/* HEADER — sticky, always solid */
+#hdr{background:var(–brown);color:var(–gold2);padding:14px 14px 0;position:sticky;top:0;z-index:200;box-shadow:0 3px 16px rgba(0,0,0,.55);}
+#hdr h1{font-family:‘Cormorant Garamond’,serif;font-size:1.55rem;font-weight:300;letter-spacing:.05em;line-height:1.1;}
+#hdr h1 span{color:var(–gold);font-style:italic;}
+.hdr-sub{font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;opacity:.6;margin-top:1px;}
+#search-row{display:flex;align-items:center;gap:8px;margin-top:9px;}
+#searchbox{flex:1;border:1px solid rgba(201,150,58,.4);background:rgba(255,255,255,.08);color:var(–cream);border-radius:24px;padding:7px 14px;font-family:‘Jost’,sans-serif;font-size:.85rem;outline:none;}
 #searchbox::placeholder{color:rgba(250,246,240,.35);}
-#searchbox:focus{border-color:var(--gold);background:rgba(255,255,255,.13);}
-#total-badge{font-size:.7rem;background:var(--gold);color:var(--brown);border-radius:20px;padding:4px 10px;font-weight:500;white-space:nowrap;flex-shrink:0;}
-.tab-bar{display:flex;border-top:1px solid rgba(201,150,58,.2);margin-top:10px;}
-.tab-btn{flex:1;background:none;border:none;color:rgba(232,201,122,.6);font-family:'Jost',sans-serif;font-size:.82rem;padding:10px 6px 8px;cursor:pointer;border-bottom:2px solid transparent;letter-spacing:.04em;transition:color .2s,border-color .2s;}
-.tab-btn.active{color:var(--gold2);border-bottom-color:var(--gold);}
-#sel-bar{display:none;background:var(--brown2);color:var(--cream);padding:9px 14px;font-size:.84rem;border-bottom:2px solid var(--gold);align-items:center;gap:10px;flex-shrink:0;z-index:99;}
-#sel-bar.on{display:flex;}
-#sel-name{flex:1;font-weight:500;}
-#sel-name em{font-style:normal;color:var(--gold2);}
-.pill-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:var(--cream);border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.78rem;cursor:pointer;}
-.pill-btn:active{background:rgba(255,255,255,.28);}
-#pages{flex:1;overflow:hidden;position:relative;}
-.page{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none;}
-.page.active{display:block;}
-#page-mesas{padding:12px 11px 90px;}
-.mesa-card{background:var(--card);border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px var(--shadow);overflow:hidden;border:1.5px solid rgba(201,150,58,.18);transition:border-color .2s,box-shadow .2s;}
-.mesa-card.drop-target{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,150,58,.25);}
-.mesa-card.presid{border-color:var(--gold);background:linear-gradient(135deg,#fffdf0,#fff8e1);}
-.mesa-card.search-hidden{display:none;}
-.mesa-header{padding:10px 12px 8px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(201,150,58,.15);}
-.mesa-icon{font-size:1.15rem;flex-shrink:0;cursor:pointer;padding:2px 3px;border-radius:6px;}
-.mesa-icon:active{background:var(--parch);}
-.mesa-title-wrap{flex:1;min-width:0;cursor:pointer;}
-.mesa-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--brown);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mesa-title-input{display:none;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--brown);border:none;border-bottom:2px solid var(--gold);background:transparent;outline:none;width:100%;padding:1px 0;}
-.captain-badge{font-size:.62rem;background:rgba(201,150,58,.13);color:var(--brown2);border-radius:20px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80px;flex-shrink:0;}
-.mesa-count{font-size:.68rem;background:var(--parch);color:var(--brown2);border-radius:20px;padding:2px 7px;font-weight:500;flex-shrink:0;}
-.presid .mesa-count{background:var(--gold2);color:var(--brown);}
-.hdr-btn{background:none;border:none;cursor:pointer;font-size:.85rem;padding:3px 4px;border-radius:7px;color:#bbb;line-height:1;flex-shrink:0;}
-.hdr-btn:active{background:var(--parch);}
-.hdr-btn.del{color:#d9a0a0;}
-.chevron{color:var(--gold);font-size:.82rem;transition:transform .25s;flex-shrink:0;cursor:pointer;padding:4px;}
-.mesa-card.collapsed .chevron{transform:rotate(-90deg);}
-.guest-list{list-style:none;overflow:hidden;transition:max-height .3s ease;}
-.mesa-card.collapsed .guest-list{max-height:0!important;}
-.guest-item{display:flex;align-items:center;padding:8px 11px;border-bottom:1px solid rgba(0,0,0,.04);gap:7px;}
-.guest-item:last-child{border-bottom:none;}
-.guest-item.selected{background:var(--sel);border-left:3px solid var(--selbdr);padding-left:8px;}
-.guest-item.hidden{display:none;}
-.guest-item.is-captain{background:rgba(201,150,58,.07);}
-.g-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.g-name{flex:1;font-size:.86rem;line-height:1.3;cursor:pointer;}
-.g-name-input{display:none;flex:1;border:none;border-bottom:2px solid var(--gold);background:transparent;font-family:'Jost',sans-serif;font-size:.86rem;color:var(--ink);outline:none;padding:1px 0;min-width:0;}
-.g-cap{font-size:.75rem;flex-shrink:0;cursor:pointer;opacity:.35;padding:2px;}
-.is-captain .g-cap{opacity:1;}
-.g-group{font-size:.65rem;color:#aaa;text-align:right;max-width:76px;line-height:1.2;flex-shrink:0;}
-.g-edit-btn,.g-del-btn{background:none;border:none;cursor:pointer;font-size:.72rem;padding:3px 4px;border-radius:5px;flex-shrink:0;line-height:1;}
-.g-edit-btn{color:#c8b89a;}
-.g-edit-btn:active{background:var(--parch);}
-.g-del-btn{color:#d9a0a0;}
-.g-del-btn:active{color:var(--rose);}
-.add-guest-row{display:flex;align-items:center;gap:8px;padding:7px 11px 8px;border-top:1px dashed rgba(201,150,58,.18);}
-.add-guest-input{flex:1;border:none;border-bottom:1px solid rgba(201,150,58,.3);background:transparent;font-family:'Jost',sans-serif;font-size:.82rem;color:var(--ink);padding:3px 2px;outline:none;}
-.add-guest-input::placeholder{color:#ccc;}
-.add-guest-btn{background:var(--gold);color:var(--brown);border:none;border-radius:20px;padding:5px 11px;font-family:'Jost',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;}
-.add-guest-btn:active{opacity:.8;}
-.move-btn{display:none;width:100%;padding:10px;background:var(--brown);color:var(--gold2);border:none;font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.04em;cursor:pointer;}
-.move-btn:active{background:var(--brown2);}
-body.has-sel .move-btn{display:block;}
-body.has-sel .source-mesa .move-btn{display:none;}
-.empty-msg{text-align:center;padding:36px 20px;color:#bbb;font-family:'Cormorant Garamond',serif;font-size:1.1rem;display:none;}
-#page-plano{padding:0;overflow:hidden;}
-#page-plano.active{display:flex;flex-direction:column;}
-#plano-toolbar{background:var(--brown);padding:8px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
-#plano-toolbar span{color:var(--gold2);font-size:.73rem;opacity:.7;flex:1;}
-.plano-btn{background:rgba(255,255,255,.12);border:1px solid rgba(201,150,58,.3);color:var(--gold2);border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.75rem;cursor:pointer;}
-.plano-btn:active{background:rgba(255,255,255,.22);}
-#plano-canvas-wrap{flex:1;position:relative;overflow:hidden;background:var(--cream);}
-#plano-canvas-wrap::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,150,58,.15) 1px,transparent 1px);background-size:26px 26px;}
-.table-circle{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;user-select:none;box-shadow:0 3px 14px rgba(0,0,0,.25);border:3px solid rgba(255,255,255,.65);touch-action:none;text-align:center;padding:5px;}
-.table-circle.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,.4);transform:scale(1.06);z-index:10;}
-.tc-name{font-family:'Cormorant Garamond',serif;font-weight:600;color:#fff;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.45);}
-.tc-captain{font-family:'Jost',sans-serif;color:rgba(255,255,255,.88);line-height:1.1;text-shadow:0 1px 2px rgba(0,0,0,.4);}
-.tc-count{font-family:'Jost',sans-serif;color:rgba(255,255,255,.7);line-height:1;}
-#undo-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--brown);color:var(--cream);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:.83rem;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:500;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
-#undo-toast.show{transform:translateX(-50%) translateY(0);}
-#undo-btn{background:var(--gold);color:var(--brown);border:none;border-radius:20px;padding:5px 13px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;}
-#fab-row{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:9px;z-index:200;align-items:flex-end;}
-#fab-row.hidden{display:none;}
-.fab{border:none;border-radius:50px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:500;box-shadow:0 3px 14px rgba(0,0,0,.3);display:flex;align-items:center;gap:6px;transition:transform .15s;}
-.fab:active{transform:scale(.94);}
-#fab-add{background:var(--brown);color:var(--gold2);padding:11px 18px 11px 14px;font-size:.84rem;}
-#fab-reset{background:var(--rose);color:#fff;padding:10px 16px 10px 12px;font-size:.81rem;}
-#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;align-items:flex-end;justify-content:center;}
-#modal-overlay.on{display:flex;}
-#modal{background:var(--card);border-radius:20px 20px 0 0;padding:22px 18px 34px;width:100%;max-width:500px;animation:sup .25s ease;}
+#searchbox:focus{border-color:var(–gold);}
+#tot{font-size:.7rem;background:var(–gold);color:var(–brown);border-radius:20px;padding:4px 10px;font-weight:500;white-space:nowrap;flex-shrink:0;}
+.tabs{display:flex;border-top:1px solid rgba(201,150,58,.2);margin-top:10px;}
+.tab{flex:1;background:none;border:none;color:rgba(232,201,122,.55);font-family:‘Jost’,sans-serif;font-size:.82rem;padding:10px 4px 8px;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+.tab.on{color:var(–gold2);border-bottom-color:var(–gold);}
+
+/* SEL BAR */
+#selbar{display:none;background:var(–brown2);color:var(–cream);padding:9px 14px;font-size:.84rem;border-bottom:2px solid var(–gold);align-items:center;gap:10px;position:sticky;top:0;z-index:190;}
+#selbar.on{display:flex;}
+#selnm{flex:1;font-weight:500;}
+#selnm em{font-style:normal;color:var(–gold2);}
+.pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:var(–cream);border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.78rem;cursor:pointer;}
+
+/* PAGES */
+#pg-mesas{display:block;padding:12px 11px 100px;}
+#pg-plano{display:none;flex-direction:column;}
+#pg-plano.on{display:flex;}
+
+/* MESA CARDS */
+.mcard{background:var(–card);border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(61,31,0,.14);overflow:hidden;border:1.5px solid rgba(201,150,58,.17);transition:border-color .2s,box-shadow .2s;}
+.mcard.droptgt{border-color:var(–gold);box-shadow:0 0 0 3px rgba(201,150,58,.25);}
+.mcard.presid{border-color:var(–gold);background:linear-gradient(135deg,#fffdf0,#fff8e1);}
+.mcard.shidden{display:none;}
+.mhdr{padding:10px 12px 8px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(201,150,58,.13);}
+.micon{font-size:1.15rem;flex-shrink:0;cursor:pointer;padding:2px 3px;border-radius:5px;}
+.micon:active{background:var(–parch);}
+.mtitlewrap{flex:1;min-width:0;cursor:pointer;}
+.mtitle{font-family:‘Cormorant Garamond’,serif;font-size:1rem;font-weight:600;color:var(–brown);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mtinput{display:none;font-family:‘Cormorant Garamond’,serif;font-size:1rem;font-weight:600;color:var(–brown);border:none;border-bottom:2px solid var(–gold);background:transparent;outline:none;width:100%;padding:1px 0;}
+.capbadge{font-size:.6rem;background:rgba(201,150,58,.12);color:var(–brown2);border-radius:20px;padding:2px 6px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
+.mcnt{font-size:.67rem;background:var(–parch);color:var(–brown2);border-radius:20px;padding:2px 7px;font-weight:500;flex-shrink:0;}
+.presid .mcnt{background:var(–gold2);color:var(–brown);}
+.hbtn{background:none;border:none;cursor:pointer;font-size:.85rem;padding:3px 4px;border-radius:6px;color:#bbb;line-height:1;flex-shrink:0;}
+.hbtn:active{background:var(–parch);}
+.hbtn.del{color:#d9a0a0;}
+.chev{color:var(–gold);font-size:.82rem;transition:transform .25s;cursor:pointer;padding:4px;flex-shrink:0;}
+.mcard.coll .chev{transform:rotate(-90deg);}
+.glist{list-style:none;overflow:hidden;transition:max-height .3s ease;}
+.mcard.coll .glist{max-height:0!important;}
+.gitem{display:flex;align-items:center;padding:8px 11px;border-bottom:1px solid rgba(0,0,0,.04);gap:7px;}
+.gitem:last-child{border-bottom:none;}
+.gitem.sel{background:#fff3cd;border-left:3px solid var(–gold);padding-left:8px;}
+.gitem.hidden{display:none;}
+.gitem.iscap{background:rgba(201,150,58,.07);}
+.gdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.gnm{flex:1;font-size:.86rem;cursor:pointer;}
+.gninput{display:none;flex:1;border:none;border-bottom:2px solid var(–gold);background:transparent;font-family:‘Jost’,sans-serif;font-size:.86rem;color:var(–ink);outline:none;padding:1px 0;min-width:0;}
+.gcap{font-size:.75rem;flex-shrink:0;cursor:pointer;opacity:.28;padding:2px;}
+.iscap .gcap{opacity:1;}
+.ggrp{font-size:.63rem;color:#aaa;text-align:right;max-width:72px;flex-shrink:0;}
+.gedit,.gdel{background:none;border:none;cursor:pointer;font-size:.72rem;padding:3px 3px;border-radius:5px;flex-shrink:0;line-height:1;}
+.gedit{color:#c8b89a;}
+.gdel{color:#d9a0a0;}
+.gdel:active{color:var(–rose);}
+.addrow{display:flex;align-items:center;gap:8px;padding:7px 11px 8px;border-top:1px dashed rgba(201,150,58,.18);}
+.addinput{flex:1;border:none;border-bottom:1px solid rgba(201,150,58,.3);background:transparent;font-family:‘Jost’,sans-serif;font-size:.82rem;color:var(–ink);padding:3px 2px;outline:none;}
+.addinput::placeholder{color:#ccc;}
+.addbtn{background:var(–gold);color:var(–brown);border:none;border-radius:20px;padding:5px 11px;font-family:‘Jost’,sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;}
+.movebtn{display:none;width:100%;padding:10px;background:var(–brown);color:var(–gold2);border:none;font-family:‘Cormorant Garamond’,serif;font-size:.95rem;cursor:pointer;}
+.movebtn:active{background:var(–brown2);}
+body.hassel .movebtn{display:block;}
+body.hassel .srcmesa .movebtn{display:none;}
+.emptymsg{text-align:center;padding:36px 20px;color:#bbb;font-family:‘Cormorant Garamond’,serif;font-size:1.1rem;display:none;}
+
+/* PLANO */
+#plano-bar{background:var(–brown);padding:8px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+#plano-bar span{color:var(–gold2);font-size:.72rem;opacity:.65;flex:1;}
+.pbtn{background:rgba(255,255,255,.12);border:1px solid rgba(201,150,58,.3);color:var(–gold2);border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.75rem;cursor:pointer;}
+#pcwrap{position:relative;background:var(–cream);overflow:hidden;}
+#pcwrap::before{content:’’;position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,150,58,.17) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;}
+.tcircle{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none;touch-action:none;text-align:center;padding:5px;border:3px solid rgba(255,255,255,.65);box-shadow:0 3px 14px rgba(0,0,0,.25);cursor:grab;}
+.tcircle.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,.4);transform:scale(1.06);z-index:10;}
+.tcnm{font-family:‘Cormorant Garamond’,serif;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);line-height:1.1;}
+.tccap{font-family:‘Jost’,sans-serif;color:rgba(255,255,255,.88);text-shadow:0 1px 2px rgba(0,0,0,.4);line-height:1.1;}
+.tccnt{font-family:‘Jost’,sans-serif;color:rgba(255,255,255,.72);line-height:1;}
+
+/* TOAST */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(–brown);color:var(–cream);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:.83rem;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:500;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+#undobtn{background:var(–gold);color:var(–brown);border:none;border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;}
+
+/* FAB */
+#fabrow{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:9px;z-index:300;align-items:flex-end;}
+#fabrow.hidden{display:none;}
+.fab{border:none;border-radius:50px;cursor:pointer;font-family:‘Jost’,sans-serif;font-weight:500;box-shadow:0 3px 14px rgba(0,0,0,.3);display:flex;align-items:center;gap:5px;transition:transform .15s;}
+.fab:active{transform:scale(.93);}
+#fab1{background:var(–brown);color:var(–gold2);padding:11px 18px 11px 13px;font-size:.83rem;}
+#fab2{background:var(–rose);color:#fff;padding:10px 16px 10px 12px;font-size:.81rem;}
+
+/* MODAL */
+#moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;align-items:flex-end;justify-content:center;}
+#moverlay.on{display:flex;}
+#mdl{background:var(–card);border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:500px;animation:sup .25s ease;}
 @keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
-#modal h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--brown);margin-bottom:14px;}
-.m-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:#999;margin-bottom:4px;}
-.m-input{width:100%;border:1px solid rgba(201,150,58,.4);border-radius:10px;padding:10px 13px;font-family:'Jost',sans-serif;font-size:.92rem;color:var(--ink);background:var(--cream);outline:none;margin-bottom:13px;}
-.m-input:focus{border-color:var(--gold);}
-.icon-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:16px;}
-.icon-opt{font-size:1.2rem;text-align:center;padding:6px 2px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
-.icon-opt.picked{border-color:var(--gold);background:var(--parch);}
-.modal-actions{display:flex;gap:10px;}
-.modal-btn{flex:1;border:none;border-radius:12px;padding:12px;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;}
-.modal-btn.cancel{background:var(--parch);color:var(--brown2);}
-.modal-btn.confirm{background:var(--brown);color:var(--gold2);}
-.modal-btn:active{opacity:.85;}
+#mdl h2{font-family:‘Cormorant Garamond’,serif;font-size:1.3rem;color:var(–brown);margin-bottom:14px;}
+.mlbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:#999;margin-bottom:4px;}
+.minput{width:100%;border:1px solid rgba(201,150,58,.4);border-radius:10px;padding:10px 13px;font-family:‘Jost’,sans-serif;font-size:.92rem;color:var(–ink);background:var(–cream);outline:none;margin-bottom:13px;}
+.minput:focus{border-color:var(–gold);}
+.icongrid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:16px;}
+.iopt{font-size:1.2rem;text-align:center;padding:6px 2px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
+.iopt.picked{border-color:var(–gold);background:var(–parch);}
+.macts{display:flex;gap:10px;}
+.mbtn{flex:1;border:none;border-radius:12px;padding:12px;font-family:‘Jost’,sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;}
+.mbtn.cancel{background:var(–parch);color:var(–brown2);}
+.mbtn.ok{background:var(–brown);color:var(–gold2);}
 </style>
+
 </head>
 <body>
-<div id="app-header">
-  <h1>💍 Boda <span>Serena &amp; Antonio</span></h1>
-  <div class="header-sub">Distribución de mesas</div>
-  <div class="header-row" id="search-row">
-    <input id="searchbox" type="search" placeholder="Buscar invitado…" autocomplete="off" autocorrect="off" spellcheck="false">
-    <span id="total-badge">— inv.</span>
+
+<div id="hdr">
+  <h1>&#128141; Boda <span>Serena &amp; Antonio</span></h1>
+  <div class="hdr-sub">Distribuci&#243;n de mesas</div>
+  <div id="search-row">
+    <input id="searchbox" type="search" placeholder="Buscar invitado&#8230;" autocomplete="off" autocorrect="off" spellcheck="false">
+    <span id="tot">&#8212; inv.</span>
   </div>
-  <div class="tab-bar">
-    <button class="tab-btn active" data-tab="mesas">📋 Mesas</button>
-    <button class="tab-btn" data-tab="plano">🗺 Plano</button>
+  <div class="tabs">
+    <button class="tab on" data-tab="mesas">&#128203; Mesas</button>
+    <button class="tab" data-tab="plano">&#128506; Plano</button>
   </div>
 </div>
-<div id="sel-bar">
-  <span id="sel-name"></span>
-  <button class="pill-btn" id="cancel-sel-btn">✕ Cancelar</button>
+
+<div id="selbar">
+  <span id="selnm"></span>
+  <button class="pill" id="cancelsel">&#10005; Cancelar</button>
 </div>
-<div id="pages">
-  <div class="page active" id="page-mesas">
-    <p class="empty-msg" id="empty-msg">No se encontraron invitados</p>
+
+<div id="pg-mesas">
+  <p class="emptymsg" id="emptymsg">No se encontraron invitados</p>
+</div>
+
+<div id="pg-plano">
+  <div id="plano-bar">
+    <span>Arrastra las mesas para organizarlas</span>
+    <button class="pbtn" id="preset">&#8635; Reiniciar</button>
   </div>
-  <div class="page" id="page-plano">
-    <div id="plano-toolbar">
-      <span>Arrastra las mesas para organizarlas</span>
-      <button class="plano-btn" id="plano-reset-btn">↺ Reiniciar</button>
+  <div id="pcwrap"></div>
+</div>
+
+<div id="toast"><span id="toastmsg"></span><button id="undobtn">Deshacer</button></div>
+
+<div id="fabrow">
+  <button class="fab" id="fab1">&#xff0b; Nueva mesa</button>
+  <button class="fab" id="fab2">&#8635; Restaurar todo</button>
+</div>
+
+<div id="moverlay">
+  <div id="mdl">
+    <h2 id="mdltitle">Nueva mesa</h2>
+    <div id="namewrap"><div class="mlbl">Nombre de la mesa</div><input class="minput" id="mdlname" type="text" placeholder="Ej: Mesa 21"></div>
+    <div class="mlbl">Icono</div>
+    <div class="icongrid" id="icongrid"></div>
+    <div class="macts">
+      <button class="mbtn cancel" id="mdlcancel">Cancelar</button>
+      <button class="mbtn ok" id="mdlok">Guardar</button>
     </div>
-    <div id="plano-canvas-wrap"></div>
   </div>
 </div>
-<div id="undo-toast"><span id="undo-msg"></span><button id="undo-btn">Deshacer</button></div>
-<div id="fab-row">
-  <button class="fab" id="fab-add">＋ Nueva mesa</button>
-  <button class="fab" id="fab-reset">↺ Restaurar todo</button>
-</div>
-<div id="modal-overlay">
-  <div id="modal">
-    <h2 id="modal-title">Nueva mesa</h2>
-    <div id="name-wrap"><div class="m-label">Nombre de la mesa</div><input class="m-input" id="modal-name" type="text" placeholder="Ej: Mesa 21"></div>
-    <div class="m-label">Icono</div>
-    <div class="icon-grid" id="icon-grid"></div>
-    <div class="modal-actions">
-      <button class="modal-btn cancel" id="modal-cancel">Cancelar</button>
-      <button class="modal-btn confirm" id="modal-confirm">Guardar</button>
-    </div>
-  </div>
-</div>
+
 <script>
-const GC={"Nosotros":"#FFD700","Familia Antonio Jiménez":"#FFCBA4","Familia Serena Gómez":"#C8B4E8","Amigos Barcelona":"#7EC8E3","Amigos Comunes":"#88C98A","Amigos Coruña":"#A8D880","Amigos Granada":"#FFB08A","Amigos PDF":"#F4A0B5","Amigos Ponferrada":"#C49ED8","Amigos Serena Gómez":"#6FD8E4","Amigos Sueltos":"#FFE87A","Amigos Tenerife":"#FFD085","Amolaeras":"#BCAAA4","Trabajo Antonio":"#B0BEC5","Trabajo Serena Gómez":"#D4E157"};
-const TC_COLORS=["#7b6d8d","#5e8b7e","#9e7b5f","#6d7fa8","#8b5e6d","#7a9e6b","#a87a5e","#5e7a9e","#9e5e7a","#6b8b5e","#8d7b6d","#5f7b8b","#9e8b6b","#7b5e8d","#6d9e7b","#8b6d5e","#5e6d9e","#8b9e5e","#9e6d7b","#6b5e8d","#7a8b6d","#8d5e7b"];
+const GC={"Nosotros":"#FFD700","Familia Antonio Jim\u00e9nez":"#FFCBA4","Familia Serena G\u00f3mez":"#C8B4E8","Amigos Barcelona":"#7EC8E3","Amigos Comunes":"#88C98A","Amigos Coru\u00f1a":"#A8D880","Amigos Granada":"#FFB08A","Amigos PDF":"#F4A0B5","Amigos Ponferrada":"#C49ED8","Amigos Serena G\u00f3mez":"#6FD8E4","Amigos Sueltos":"#FFE87A","Amigos Tenerife":"#FFD085","Amolaeras":"#BCAAA4","Trabajo Antonio":"#B0BEC5","Trabajo Serena G\u00f3mez":"#D4E157"};
+const TCC=["#7b6d8d","#5e8b7e","#9e7b5f","#6d7fa8","#8b5e6d","#7a9e6b","#a87a5e","#5e7a9e","#9e5e7a","#6b8b5e","#8d7b6d","#5f7b8b","#9e8b6b","#7b5e8d","#6d9e7b","#8b6d5e","#5e6d9e","#8b9e5e","#9e6d7b","#6b5e8d","#7a8b6d","#8d5e7b"];
 const ICONS=["🎉","🌸","💍","👑","🌿","🍾","🎶","🌺","💜","🧡","🌟","☀️","🌻","🍊","🏔️","🌴","🎊","🎸","🫶","💼","🤝","🌆","🌍","📄","🌙","🕊️","🦋","🌹","✨","🥂","🎀","🎁","🪷","🫧","🌈","⭐","🔮","🎠"];
-const INITIAL=[
-{id:"presidencial",name:"Mesa Presidencial",icon:"👑",presid:true,captain:null,guests:[{name:"Serena Gómez Blanco",group:"Nosotros"},{name:"Antonio Jiménez Gálvez",group:"Nosotros"},{name:"María Pilar Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Juan Jiménez Gálvez",group:"Familia Antonio Jiménez"},{name:"Jose Antonio Rodríguez Vega",group:"Familia Serena Gómez"},{name:"Silvia Rivera",group:"Familia Serena Gómez"}]},
-{id:"trabajo_antonio",name:"Mesa Trabajo Antonio",icon:"💼",captain:null,guests:[{name:"Rodrigo Spagna",group:"Trabajo Antonio"},{name:"Marta Roizo",group:"Trabajo Antonio"},{name:"Patricia Carrilero",group:"Trabajo Antonio"},{name:"Antonia Ballesteros",group:"Trabajo Antonio"},{name:"Jesús Diaz",group:"Trabajo Antonio"},{name:"Patricia Diaz",group:"Trabajo Antonio"}]},
-{id:"m01",name:"Mesa 1 – Amigos Barcelona A",icon:"🌆",captain:null,guests:[{name:"Isaac Guerrero Dotel",group:"Amigos Barcelona"},{name:"Moritz (Isaac)",group:"Amigos Barcelona"},{name:"Elena Esteban",group:"Amigos Barcelona"},{name:"Ágatha Elena",group:"Amigos Barcelona"},{name:"Manel Garrigó",group:"Amigos Barcelona"},{name:"Arriana Leyva Hernández",group:"Amigos Barcelona"},{name:"Mathi Dovale",group:"Amigos Barcelona"},{name:"(Novia de Mathi)",group:"Amigos Barcelona"}]},
-{id:"m02",name:"Mesa 2 – Amigos Barcelona B + Comunes",icon:"🤝",captain:null,guests:[{name:"Adriano Lamas",group:"Amigos Barcelona"},{name:"Martín Luengo",group:"Amigos Barcelona"},{name:"Manuel Céspedes",group:"Amigos Comunes"},{name:"Andrés Aldaz",group:"Amigos Comunes"},{name:"Bárbara Tassan",group:"Amigos Comunes"},{name:"Jordi Bruix",group:"Amigos Comunes"},{name:"Raiza Barnett",group:"Amigos Comunes"},{name:"Jose Bacca",group:"Amigos Comunes"}]},
-{id:"m03",name:"Mesa 3 – Comunes + Coruña + Sueltos",icon:"🌍",captain:null,guests:[{name:"Fran Méndez González",group:"Amigos Comunes"},{name:"Inés Salcines",group:"Amigos Coruña"},{name:"Elena Del Río",group:"Amigos Coruña"},{name:"Maximiliano Rosas",group:"Amigos Sueltos"},{name:"Debora (Maxi)",group:"Amigos Sueltos"},{name:"Ángel Molina",group:"Amigos Sueltos"},{name:"Angel Adan",group:"Amigos Tenerife"},{name:"Beatriz García",group:"Amigos Tenerife"}]},
-{id:"m04",name:"Mesa 4 – Tenerife + Trabajo Serena",icon:"🌴",captain:null,guests:[{name:"Sergio (Medusa)",group:"Amigos Tenerife"},{name:"Ana (Sergio)",group:"Amigos Tenerife"},{name:"Luciana Comastri",group:"Trabajo Serena Gómez"},{name:"Felipe Ragel",group:"Trabajo Serena Gómez"},{name:"Pablo Carballo",group:"Trabajo Serena Gómez"},{name:"Eva",group:"Trabajo Serena Gómez"},{name:"Anabel Macías Oviedo",group:"Amigos PDF"},{name:"Adrían Fernández",group:"Amigos PDF"}]},
-{id:"m05",name:"Mesa 5 – PDF + Ponferrada",icon:"📄",captain:null,guests:[{name:"Esther Martín",group:"Amigos PDF"},{name:"Miguel Esther",group:"Amigos PDF"},{name:"Laura Martínez",group:"Amigos PDF"},{name:"Joaquín Ruíz",group:"Amigos PDF"},{name:"Alba Mateos García",group:"Amigos Ponferrada"},{name:"Juan Bacca",group:"Amigos Ponferrada"},{name:"María Jáñez",group:"Amigos Ponferrada"},{name:"Lucia Susial",group:"Amigos Ponferrada"}]},
-{id:"m06",name:"Mesa 6 – Amigos Serena A",icon:"🌸",captain:null,guests:[{name:"Tamara Marqués Rodríguez",group:"Amigos Serena Gómez"},{name:"Isabel Gómez Bacariza",group:"Amigos Serena Gómez"},{name:"Mónica Voces Vega",group:"Amigos Serena Gómez"},{name:"Ángel Crespo",group:"Amigos Serena Gómez"},{name:"Noelia Perez",group:"Amigos Serena Gómez"},{name:"Pedro Buesa",group:"Amigos Serena Gómez"},{name:"Gonzalo Buesa Pérez",group:"Amigos Serena Gómez"},{name:"Victoria Basante",group:"Amigos Serena Gómez"}]},
-{id:"m07",name:"Mesa 7 – Amigos Serena B",icon:"🌿",captain:null,guests:[{name:"Eduardo Gete Puente",group:"Amigos Serena Gómez"},{name:"Paula Abraila",group:"Amigos Serena Gómez"},{name:"Marta Jutglar",group:"Amigos Serena Gómez"},{name:"Emiliano Macías",group:"Amigos Serena Gómez"},{name:"Pilar Berges Périz",group:"Amigos Serena Gómez"},{name:"Marta",group:"Amigos Serena Gómez"},{name:"Beatriz Morán Delgado",group:"Familia Serena Gómez"},{name:"Antonio Morán Delgado",group:"Familia Serena Gómez"}]},
-{id:"m08",name:"Mesa 8 – Familia Serena A",icon:"💜",captain:null,guests:[{name:"Rosa María Blanco Delgado",group:"Familia Serena Gómez"},{name:"María de los Ángeles Blanco Delgado",group:"Familia Serena Gómez"},{name:"Daniel Blanco Delgado",group:"Familia Serena Gómez"},{name:"Iker Blanco Rivera",group:"Familia Serena Gómez"},{name:"Alfredo Gómez Álvarez",group:"Familia Serena Gómez"},{name:"Yann Gómez Gabaldón",group:"Familia Serena Gómez"},{name:"Alison Gómez Gabaldón",group:"Familia Serena Gómez"},{name:"Miguel Ángel Cabo Álvarez",group:"Familia Serena Gómez"}]},
-{id:"m09",name:"Mesa 9 – Amigos Granada A",icon:"🌺",captain:null,guests:[{name:"Alvaro Castillo",group:"Amigos Granada"},{name:"Claudia (Alvaro)",group:"Amigos Granada"},{name:"Andrea Delgado",group:"Amigos Granada"},{name:"Ángel Aguilera",group:"Amigos Granada"},{name:"Javier Pleguezuelos",group:"Amigos Granada"},{name:"(Novia de Javi)",group:"Amigos Granada"},{name:"Jesús Villar",group:"Amigos Granada"},{name:"Claudia (Jesús)",group:"Amigos Granada"}]},
-{id:"m10",name:"Mesa 10 – Amigos Granada B",icon:"🏔️",captain:null,guests:[{name:"Mario Sanchez Samos",group:"Amigos Granada"},{name:"Pilar Fernández Márquez",group:"Amigos Granada"},{name:"Javier Valenzuela Rivero",group:"Amigos Granada"},{name:"Teresa Muros",group:"Amigos Granada"},{name:"(Pareja de Teresa)",group:"Amigos Granada"},{name:"Miguel Angel Gonzalez Piqueras",group:"Amigos Granada"},{name:"Néstor Heras Jiménez",group:"Amigos Granada"},{name:"Marina Mármol",group:"Amigos Granada"}]},
-{id:"m11",name:"Mesa 11 – Amolaeras A",icon:"🎉",captain:null,guests:[{name:"Ramón Martín",group:"Amolaeras"},{name:"Olga Reyes",group:"Amolaeras"},{name:"Patricia Martín",group:"Amolaeras"},{name:"Ayiyo (Patri)",group:"Amolaeras"},{name:"Angela Martín Reyes",group:"Amolaeras"},{name:"Jose Carlos Gómez Rodríguez",group:"Amolaeras"},{name:"Antonio Jiménez Bautista",group:"Amolaeras"},{name:"Adelina del Moral",group:"Amolaeras"}]},
-{id:"m12",name:"Mesa 12 – Amolaeras B",icon:"🎊",captain:null,guests:[{name:"María Jiménez del Moral",group:"Amolaeras"},{name:"Manu (María)",group:"Amolaeras"},{name:"Mariano Aguilera",group:"Amolaeras"},{name:"Adeli Pérez",group:"Amolaeras"},{name:"Belén Aguilera Pérez",group:"Amolaeras"},{name:"Alberto Benitez",group:"Amolaeras"},{name:"Adeli Aguilera Pérez",group:"Amolaeras"},{name:"Sergio López",group:"Amolaeras"}]},
-{id:"m13",name:"Mesa 13 – Amolaeras C",icon:"🎶",captain:null,guests:[{name:"Juan Rey",group:"Amolaeras"},{name:"Juanillo Rey",group:"Amolaeras"},{name:"Juanfran Rodriguez",group:"Amolaeras"},{name:"Encarni Ibañez",group:"Amolaeras"},{name:"Paula Rodriguez Ibañez",group:"Amolaeras"},{name:"Mario Rodriguez Ibañez",group:"Amolaeras"},{name:"Marina Jaubert",group:"Amolaeras"},{name:"Jose Espejo Montenegro",group:"Amolaeras"}]},
-{id:"m14",name:"Mesa 14 – Amolaeras D",icon:"🎸",captain:null,guests:[{name:"Encarni Ortega",group:"Amolaeras"},{name:"Pepe Espejo",group:"Amolaeras"},{name:"Pique",group:"Amolaeras"},{name:"Juan Manuel (Pique)",group:"Amolaeras"},{name:"Julia (Julilli)",group:"Amolaeras"},{name:"Jaime (Julilli)",group:"Amolaeras"},{name:"Juan (Julilli)",group:"Amolaeras"},{name:"Pepa Jiménez",group:"Amolaeras"}]},
-{id:"m15",name:"Mesa 15 – Amolaeras E",icon:"🫶",captain:null,guests:[{name:"Fermín Nogales",group:"Amolaeras"},{name:"Maria José Nogales Jiménez",group:"Amolaeras"},{name:"Fermín Nogales Jiménez",group:"Amolaeras"},{name:"Antonio Jiménez Martín",group:"Amolaeras"},{name:"Mercedes (Antoñín)",group:"Amolaeras"},{name:"María Jiménez",group:"Amolaeras"},{name:"Rafa Rey Padre",group:"Amolaeras"},{name:"Carmen Novia Marina",group:"Amigos Granada"}]},
-{id:"m16",name:"Mesa 16 – Familia Antonio A",icon:"🧡",captain:null,guests:[{name:"Antonio José Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Azul Krywyk Berruezo",group:"Familia Antonio Jiménez"},{name:"Cielo Krywyk Jiménez",group:"Familia Antonio Jiménez"},{name:"Pili Jiménez Gálvez",group:"Familia Antonio Jiménez"},{name:"Sergio Fabregat",group:"Familia Antonio Jiménez"},{name:"Rafael Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Rosa Espejo Montenegro",group:"Familia Antonio Jiménez"},{name:"Rafael Jiménez Espejo",group:"Familia Antonio Jiménez"}]},
-{id:"m17",name:"Mesa 17 – Familia Antonio B",icon:"🍊",captain:null,guests:[{name:"Maria José Haro Escobar",group:"Familia Antonio Jiménez"},{name:"Jose Antonio Jiménez Espejo",group:"Familia Antonio Jiménez"},{name:"Isabel (Jose Antonio)",group:"Familia Antonio Jiménez"},{name:"Loli Jiménez Espejo",group:"Familia Antonio Jiménez"},{name:"Guillem Pérez Villanueva",group:"Familia Antonio Jiménez"},{name:"Loli Jiménez Morilla",group:"Familia Antonio Jiménez"},{name:"Jose Luis Gálvez (Padre)",group:"Familia Antonio Jiménez"},{name:"Jose Luis Gálvez Jiménez",group:"Familia Antonio Jiménez"}]},
-{id:"m18",name:"Mesa 18 – Familia Antonio C",icon:"🌻",captain:null,guests:[{name:"Gabi Morante Gómez",group:"Familia Antonio Jiménez"},{name:"Antonia Gálvez Moreno",group:"Familia Antonio Jiménez"},{name:"Juan Antonio Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Inma Ortega",group:"Familia Antonio Jiménez"},{name:"Sergio Gálvez Ortega",group:"Familia Antonio Jiménez"},{name:"Pablo Gálvez Ortega",group:"Familia Antonio Jiménez"},{name:"Trini Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Antonio Moreno Gálvez",group:"Familia Antonio Jiménez"}]},
-{id:"m19",name:"Mesa 19 – Familia Antonio D",icon:"☀️",captain:null,guests:[{name:"Julia Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Perea",group:"Familia Antonio Jiménez"},{name:"Julia Perea Gálvez",group:"Familia Antonio Jiménez"},{name:"Ander (Julia)",group:"Familia Antonio Jiménez"},{name:"Daniel Perea Gálvez",group:"Familia Antonio Jiménez"},{name:"Virginia Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Javier Toledo",group:"Familia Antonio Jiménez"},{name:"Virginia Toledo Gálvez",group:"Familia Antonio Jiménez"}]},
-{id:"m20",name:"Mesa 20 – Familia Antonio E + Familia Serena B",icon:"🌟",captain:null,guests:[{name:"Lucas Toledo Gálvez",group:"Familia Antonio Jiménez"},{name:"Jose Manuel Gálvez Gálvez",group:"Familia Antonio Jiménez"},{name:"Alicia Martinez",group:"Familia Antonio Jiménez"},{name:"Yannick Gálvez Martinez",group:"Familia Antonio Jiménez"},{name:"Levi Gálvez Martinez",group:"Familia Antonio Jiménez"},{name:"Ana Álvarez García",group:"Familia Serena Gómez"},{name:"Jose García Álvarez",group:"Familia Serena Gómez"},{name:"Marta Domínguez Corredera",group:"Familia Serena Gómez"},{name:"Iker García Domínguez",group:"Familia Serena Gómez"}]},
+const INI=[
+{id:"presidencial",name:"Mesa Presidencial",icon:"👑",presid:true,captain:null,guests:[{name:"Serena G\u00f3mez Blanco",group:"Nosotros"},{name:"Antonio Jim\u00e9nez G\u00e1lvez",group:"Nosotros"},{name:"Mar\u00eda Pilar G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Rodr\u00edguez Vega",group:"Familia Serena G\u00f3mez"},{name:"Silvia Rivera",group:"Familia Serena G\u00f3mez"}]},
+{id:"trab_ant",name:"Mesa Trabajo Antonio",icon:"💼",captain:null,guests:[{name:"Rodrigo Spagna",group:"Trabajo Antonio"},{name:"Marta Roizo",group:"Trabajo Antonio"},{name:"Patricia Carrilero",group:"Trabajo Antonio"},{name:"Antonia Ballesteros",group:"Trabajo Antonio"},{name:"Jes\u00fas Diaz",group:"Trabajo Antonio"},{name:"Patricia Diaz",group:"Trabajo Antonio"}]},
+{id:"m01",name:"Mesa 1 \u2013 Amigos Barcelona A",icon:"🌆",captain:null,guests:[{name:"Isaac Guerrero Dotel",group:"Amigos Barcelona"},{name:"Moritz (Isaac)",group:"Amigos Barcelona"},{name:"Elena Esteban",group:"Amigos Barcelona"},{name:"\u00c1gatha Elena",group:"Amigos Barcelona"},{name:"Manel Garrig\u00f3",group:"Amigos Barcelona"},{name:"Arriana Leyva Hern\u00e1ndez",group:"Amigos Barcelona"},{name:"Mathi Dovale",group:"Amigos Barcelona"},{name:"(Novia de Mathi)",group:"Amigos Barcelona"}]},
+{id:"m02",name:"Mesa 2 \u2013 Amigos Barcelona B + Comunes",icon:"🤝",captain:null,guests:[{name:"Adriano Lamas",group:"Amigos Barcelona"},{name:"Mart\u00edn Luengo",group:"Amigos Barcelona"},{name:"Manuel C\u00e9spedes",group:"Amigos Comunes"},{name:"Andr\u00e9s Aldaz",group:"Amigos Comunes"},{name:"B\u00e1rbara Tassan",group:"Amigos Comunes"},{name:"Jordi Bruix",group:"Amigos Comunes"},{name:"Raiza Barnett",group:"Amigos Comunes"},{name:"Jose Bacca",group:"Amigos Comunes"}]},
+{id:"m03",name:"Mesa 3 \u2013 Comunes + Coru\u00f1a + Sueltos",icon:"🌍",captain:null,guests:[{name:"Fran M\u00e9ndez Gonz\u00e1lez",group:"Amigos Comunes"},{name:"In\u00e9s Salcines",group:"Amigos Coru\u00f1a"},{name:"Elena Del R\u00edo",group:"Amigos Coru\u00f1a"},{name:"Maximiliano Rosas",group:"Amigos Sueltos"},{name:"Debora (Maxi)",group:"Amigos Sueltos"},{name:"\u00c1ngel Molina",group:"Amigos Sueltos"},{name:"Angel Adan",group:"Amigos Tenerife"},{name:"Beatriz Garc\u00eda",group:"Amigos Tenerife"}]},
+{id:"m04",name:"Mesa 4 \u2013 Tenerife + Trabajo Serena",icon:"🌴",captain:null,guests:[{name:"Sergio (Medusa)",group:"Amigos Tenerife"},{name:"Ana (Sergio)",group:"Amigos Tenerife"},{name:"Luciana Comastri",group:"Trabajo Serena G\u00f3mez"},{name:"Felipe Ragel",group:"Trabajo Serena G\u00f3mez"},{name:"Pablo Carballo",group:"Trabajo Serena G\u00f3mez"},{name:"Eva",group:"Trabajo Serena G\u00f3mez"},{name:"Anabel Mac\u00edas Oviedo",group:"Amigos PDF"},{name:"Adri\u00e1n Fern\u00e1ndez",group:"Amigos PDF"}]},
+{id:"m05",name:"Mesa 5 \u2013 PDF + Ponferrada",icon:"📄",captain:null,guests:[{name:"Esther Mart\u00edn",group:"Amigos PDF"},{name:"Miguel Esther",group:"Amigos PDF"},{name:"Laura Mart\u00ednez",group:"Amigos PDF"},{name:"Joaqu\u00edn Ru\u00edz",group:"Amigos PDF"},{name:"Alba Mateos Garc\u00eda",group:"Amigos Ponferrada"},{name:"Juan Bacca",group:"Amigos Ponferrada"},{name:"Mar\u00eda J\u00e1\u00f1ez",group:"Amigos Ponferrada"},{name:"Lucia Susial",group:"Amigos Ponferrada"}]},
+{id:"m06",name:"Mesa 6 \u2013 Amigos Serena A",icon:"🌸",captain:null,guests:[{name:"Tamara Marqu\u00e9s Rodr\u00edguez",group:"Amigos Serena G\u00f3mez"},{name:"Isabel G\u00f3mez Bacariza",group:"Amigos Serena G\u00f3mez"},{name:"M\u00f3nica Voces Vega",group:"Amigos Serena G\u00f3mez"},{name:"\u00c1ngel Crespo",group:"Amigos Serena G\u00f3mez"},{name:"Noelia Perez",group:"Amigos Serena G\u00f3mez"},{name:"Pedro Buesa",group:"Amigos Serena G\u00f3mez"},{name:"Gonzalo Buesa P\u00e9rez",group:"Amigos Serena G\u00f3mez"},{name:"Victoria Basante",group:"Amigos Serena G\u00f3mez"}]},
+{id:"m07",name:"Mesa 7 \u2013 Amigos Serena B",icon:"🌿",captain:null,guests:[{name:"Eduardo Gete Puente",group:"Amigos Serena G\u00f3mez"},{name:"Paula Abraila",group:"Amigos Serena G\u00f3mez"},{name:"Marta Jutglar",group:"Amigos Serena G\u00f3mez"},{name:"Emiliano Mac\u00edas",group:"Amigos Serena G\u00f3mez"},{name:"Pilar Berges P\u00e9riz",group:"Amigos Serena G\u00f3mez"},{name:"Marta",group:"Amigos Serena G\u00f3mez"},{name:"Beatriz Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"},{name:"Antonio Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"}]},
+{id:"m08",name:"Mesa 8 \u2013 Familia Serena A",icon:"💜",captain:null,guests:[{name:"Rosa Mar\u00eda Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Mar\u00eda de los \u00c1ngeles Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Daniel Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Iker Blanco Rivera",group:"Familia Serena G\u00f3mez"},{name:"Alfredo G\u00f3mez \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Yann G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Alison G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Miguel \u00c1ngel Cabo \u00c1lvarez",group:"Familia Serena G\u00f3mez"}]},
+{id:"m09",name:"Mesa 9 \u2013 Amigos Granada A",icon:"🌺",captain:null,guests:[{name:"Alvaro Castillo",group:"Amigos Granada"},{name:"Claudia (Alvaro)",group:"Amigos Granada"},{name:"Andrea Delgado",group:"Amigos Granada"},{name:"\u00c1ngel Aguilera",group:"Amigos Granada"},{name:"Javier Pleguezuelos",group:"Amigos Granada"},{name:"(Novia de Javi)",group:"Amigos Granada"},{name:"Jes\u00fas Villar",group:"Amigos Granada"},{name:"Claudia (Jes\u00fas)",group:"Amigos Granada"}]},
+{id:"m10",name:"Mesa 10 \u2013 Amigos Granada B",icon:"🏔️",captain:null,guests:[{name:"Mario Sanchez Samos",group:"Amigos Granada"},{name:"Pilar Fern\u00e1ndez M\u00e1rquez",group:"Amigos Granada"},{name:"Javier Valenzuela Rivero",group:"Amigos Granada"},{name:"Teresa Muros",group:"Amigos Granada"},{name:"(Pareja de Teresa)",group:"Amigos Granada"},{name:"Miguel Angel Gonzalez Piqueras",group:"Amigos Granada"},{name:"N\u00e9stor Heras Jim\u00e9nez",group:"Amigos Granada"},{name:"Marina M\u00e1rmol",group:"Amigos Granada"}]},
+{id:"m11",name:"Mesa 11 \u2013 Amolaeras A",icon:"🎉",captain:null,guests:[{name:"Ram\u00f3n Mart\u00edn",group:"Amolaeras"},{name:"Olga Reyes",group:"Amolaeras"},{name:"Patricia Mart\u00edn",group:"Amolaeras"},{name:"Ayiyo (Patri)",group:"Amolaeras"},{name:"Angela Mart\u00edn Reyes",group:"Amolaeras"},{name:"Jose Carlos G\u00f3mez Rodr\u00edguez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Bautista",group:"Amolaeras"},{name:"Adelina del Moral",group:"Amolaeras"}]},
+{id:"m12",name:"Mesa 12 \u2013 Amolaeras B",icon:"🎊",captain:null,guests:[{name:"Mar\u00eda Jim\u00e9nez del Moral",group:"Amolaeras"},{name:"Manu (Mar\u00eda)",group:"Amolaeras"},{name:"Mariano Aguilera",group:"Amolaeras"},{name:"Adeli P\u00e9rez",group:"Amolaeras"},{name:"Bel\u00e9n Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Alberto Benitez",group:"Amolaeras"},{name:"Adeli Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Sergio L\u00f3pez",group:"Amolaeras"}]},
+{id:"m13",name:"Mesa 13 \u2013 Amolaeras C",icon:"🎶",captain:null,guests:[{name:"Juan Rey",group:"Amolaeras"},{name:"Juanillo Rey",group:"Amolaeras"},{name:"Juanfran Rodriguez",group:"Amolaeras"},{name:"Encarni Iba\u00f1ez",group:"Amolaeras"},{name:"Paula Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Mario Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Marina Jaubert",group:"Amolaeras"},{name:"Jose Espejo Montenegro",group:"Amolaeras"}]},
+{id:"m14",name:"Mesa 14 \u2013 Amolaeras D",icon:"🎸",captain:null,guests:[{name:"Encarni Ortega",group:"Amolaeras"},{name:"Pepe Espejo",group:"Amolaeras"},{name:"Pique",group:"Amolaeras"},{name:"Juan Manuel (Pique)",group:"Amolaeras"},{name:"Julia (Julilli)",group:"Amolaeras"},{name:"Jaime (Julilli)",group:"Amolaeras"},{name:"Juan (Julilli)",group:"Amolaeras"},{name:"Pepa Jim\u00e9nez",group:"Amolaeras"}]},
+{id:"m15",name:"Mesa 15 \u2013 Amolaeras E",icon:"🫶",captain:null,guests:[{name:"Ferm\u00edn Nogales",group:"Amolaeras"},{name:"Maria Jos\u00e9 Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Ferm\u00edn Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Mart\u00edn",group:"Amolaeras"},{name:"Mercedes (Anto\u00f1\u00edn)",group:"Amolaeras"},{name:"Mar\u00eda Jim\u00e9nez",group:"Amolaeras"},{name:"Rafa Rey Padre",group:"Amolaeras"},{name:"Carmen Novia Marina",group:"Amigos Granada"}]},
+{id:"m16",name:"Mesa 16 \u2013 Familia Antonio A",icon:"🧡",captain:null,guests:[{name:"Antonio Jos\u00e9 Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Azul Krywyk Berruezo",group:"Familia Antonio Jim\u00e9nez"},{name:"Cielo Krywyk Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"},{name:"Pili Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio Fabregat",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Rosa Espejo Montenegro",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m17",name:"Mesa 17 \u2013 Familia Antonio B",icon:"🍊",captain:null,guests:[{name:"Maria Jos\u00e9 Haro Escobar",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Isabel (Jose Antonio)",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Guillem P\u00e9rez Villanueva",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez (Padre)",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m18",name:"Mesa 18 \u2013 Familia Antonio C",icon:"🌻",captain:null,guests:[{name:"Gabi Morante G\u00f3mez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonia G\u00e1lvez Moreno",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Antonio G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Inma Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Pablo G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Trini G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonio Moreno G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m19",name:"Mesa 19 \u2013 Familia Antonio D",icon:"☀️",captain:null,guests:[{name:"Julia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Perea",group:"Familia Antonio Jim\u00e9nez"},{name:"Julia Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ander (Julia)",group:"Familia Antonio Jim\u00e9nez"},{name:"Daniel Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Javier Toledo",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m20",name:"Mesa 20 \u2013 Familia Antonio E + Serena B",icon:"🌟",captain:null,guests:[{name:"Lucas Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Manuel G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Alicia Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Yannick G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Levi G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ana \u00c1lvarez Garc\u00eda",group:"Familia Serena G\u00f3mez"},{name:"Jose Garc\u00eda \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Marta Dom\u00ednguez Corredera",group:"Familia Serena G\u00f3mez"},{name:"Iker Garc\u00eda Dom\u00ednguez",group:"Familia Serena G\u00f3mez"}]},
 ];
-const SK="boda_v3",SPK="boda_plano_v1";
-const deep=x=>JSON.parse(JSON.stringify(x));
-const uid=()=>"m"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-function load(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s);}catch(e){}return deep(INITIAL);}
-function save(){localStorage.setItem(SK,JSON.stringify(mesas));}
-function loadPos(){try{const s=localStorage.getItem(SPK);if(s)return JSON.parse(s);}catch(e){}return{};}
-function savePos(){localStorage.setItem(SPK,JSON.stringify(planoPos));}
-let mesas=load(),selGuest=null,lastAction=null,undoTimer=null,collapsed=new Set(),planoPos=loadPos();
+
+const SK="boda_v4",SPK="boda_pl_v1";
+const d=x=>JSON.parse(JSON.stringify(x));
+const uid=()=>"x"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+function ld(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s);}catch(e){}return d(INI);}
+function sv(){localStorage.setItem(SK,JSON.stringify(ms));}
+function ldp(){try{const s=localStorage.getItem(SPK);if(s)return JSON.parse(s);}catch(e){}return{};}
+function svp(){localStorage.setItem(SPK,JSON.stringify(pp));}
+
+let ms=ld(), sel=null, lastAct=null, utimer=null, coll=new Set(), pp=ldp();
 
 // TABS
-const tabBtns=document.querySelectorAll(”.tab-btn”);
-document.querySelectorAll(”.tab-btn”).forEach(btn=>{
-btn.addEventListener(“click”,()=>{
-const tab=btn.dataset.tab;
-document.querySelectorAll(”.tab-btn”).forEach(b=>b.classList.remove(“active”));
-document.querySelectorAll(”.page”).forEach(p=>p.classList.remove(“active”));
-btn.classList.add(“active”);
-document.getElementById(“page-”+tab).classList.add(“active”);
-if(tab===“plano”){document.getElementById(“search-row”).style.display=“none”;document.getElementById(“fab-row”).classList.add(“hidden”);renderPlano();}
-else{document.getElementById(“search-row”).style.display=“flex”;document.getElementById(“fab-row”).classList.remove(“hidden”);}
+let curTab="mesas";
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    curTab=btn.dataset.tab;
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+    if(curTab==="plano"){
+      document.getElementById("pg-mesas").style.display="none";
+      document.getElementById("search-row").style.display="none";
+      document.getElementById("fabrow").classList.add("hidden");
+      document.getElementById("pg-plano").classList.add("on");
+      sizePlano();renderPlano();
+    } else {
+      document.getElementById("pg-mesas").style.display="block";
+      document.getElementById("search-row").style.display="flex";
+      document.getElementById("fabrow").classList.remove("hidden");
+      document.getElementById("pg-plano").classList.remove("on");
+    }
+  });
 });
-});
+
+// SIZE plano canvas to viewport
+function sizePlano(){
+  const hdrH=document.getElementById("hdr").offsetHeight;
+  const barH=document.getElementById("plano-bar").offsetHeight;
+  const h=window.innerHeight-hdrH-barH;
+  document.getElementById("pcwrap").style.height=Math.max(300,h)+"px";
+  document.getElementById("pcwrap").style.width="100%";
+}
+window.addEventListener("resize",()=>{if(curTab==="plano"){sizePlano();renderPlano();}});
 
 // RENDER MESAS
-const pm=document.getElementById(“page-mesas”);
-const badge=document.getElementById(“total-badge”);
-const selBar=document.getElementById(“sel-bar”);
-const selNameEl=document.getElementById(“sel-name”);
-
+const pm=document.getElementById("pg-mesas");
 function render(){
-pm.querySelectorAll(”.mesa-card”).forEach(e=>e.remove());
-badge.textContent=mesas.reduce((s,m)=>s+m.guests.length,0)+” inv.”;
-mesas.forEach(mesa=>{
-const card=document.createElement(“div”);
-card.className=“mesa-card”+(mesa.presid?” presid”:””)+(collapsed.has(mesa.id)?” collapsed”:””);
-if(selGuest)card.classList.add(selGuest.fromId===mesa.id?“source-mesa”:“drop-target”);
-card.dataset.id=mesa.id;
-// header
-const hdr=document.createElement(“div”);hdr.className=“mesa-header”;
-const iconEl=document.createElement(“span”);iconEl.className=“mesa-icon”;iconEl.textContent=mesa.icon;
-iconEl.addEventListener(“click”,e=>{e.stopPropagation();openModal(mesa.id);});
-const tw=document.createElement(“div”);tw.className=“mesa-title-wrap”;
-const tEl=document.createElement(“div”);tEl.className=“mesa-title”;tEl.textContent=mesa.name;
-const tIn=document.createElement(“input”);tIn.className=“mesa-title-input”;tIn.value=mesa.name;
-tw.append(tEl,tIn);tw.addEventListener(“click”,()=>toggleCol(mesa.id,card));
-tIn.addEventListener(“blur”,()=>{const v=tIn.value.trim();if(v){mesas.find(m=>m.id===mesa.id).name=v;save();}tIn.style.display=“none”;tEl.style.display=””;render();});
-tIn.addEventListener(“keydown”,e=>{if(e.key===“Enter”)tIn.blur();if(e.key===“Escape”){tIn.value=mesa.name;tIn.blur();}});
-const capBadge=document.createElement(“span”);capBadge.className=“captain-badge”;
-if(mesa.captain){capBadge.innerHTML=“⭐ “+mesa.captain.split(” “)[0];}else{capBadge.textContent=“Sin capitán”;capBadge.style.opacity=”.35”;}
-const cnt=document.createElement(“span”);cnt.className=“mesa-count”;cnt.textContent=mesa.guests.length;
-const editBtn=document.createElement(“button”);editBtn.className=“hdr-btn”;editBtn.textContent=“✏️”;
-editBtn.addEventListener(“click”,e=>{e.stopPropagation();tEl.style.display=“none”;tIn.style.display=“block”;tIn.focus();tIn.select();});
-const delBtn=document.createElement(“button”);delBtn.className=“hdr-btn del”;delBtn.textContent=“🗑”;
-delBtn.addEventListener(“click”,e=>{e.stopPropagation();deleteMesa(mesa.id);});
-const chev=document.createElement(“span”);chev.className=“chevron”;chev.textContent=“▾”;
-chev.addEventListener(“click”,e=>{e.stopPropagation();toggleCol(mesa.id,card);});
-hdr.append(iconEl,tw,capBadge,cnt,editBtn,delBtn,chev);
-card.appendChild(hdr);
-// guest list
-const ul=document.createElement(“ul”);ul.className=“guest-list”;
-ul.style.maxHeight=collapsed.has(mesa.id)?“0”:(mesa.guests.length*44+60)+“px”;
-mesa.guests.forEach(g=>{
-const isCap=mesa.captain===g.name;
-const li=document.createElement(“li”);
-li.className=“guest-item”+(selGuest&&selGuest.name===g.name&&selGuest.fromId===mesa.id?” selected”:””)+(isCap?” is-captain”:””);
-const dot=document.createElement(“span”);dot.className=“g-dot”;dot.style.background=GC[g.group]||”#ccc”;
-const nEl=document.createElement(“span”);nEl.className=“g-name”;nEl.textContent=g.name;
-const nIn=document.createElement(“input”);nIn.className=“g-name-input”;nIn.value=g.name;nIn.type=“text”;
-const capI=document.createElement(“span”);capI.className=“g-cap”;capI.textContent=“⭐”;capI.title=isCap?“Quitar capitán”:“Hacer capitán”;
-capI.addEventListener(“click”,e=>{e.stopPropagation();const m=mesas.find(m=>m.id===mesa.id);m.captain=(m.captain===g.name)?null:g.name;save();render();renderPlanoIfVisible();});
-const grpEl=document.createElement(“span”);grpEl.className=“g-group”;grpEl.textContent=g.group;
-const eBtn=document.createElement(“button”);eBtn.className=“g-edit-btn”;eBtn.textContent=“✏️”;
-eBtn.addEventListener(“click”,e=>{e.stopPropagation();nEl.style.display=“none”;grpEl.style.display=“none”;eBtn.style.display=“none”;dBtn.style.display=“none”;nIn.style.display=“block”;nIn.focus();nIn.select();});
-const dBtn=document.createElement(“button”);dBtn.className=“g-del-btn”;dBtn.textContent=“✕”;
-dBtn.addEventListener(“click”,e=>{e.stopPropagation();deleteGuest(mesa.id,g.name);});
-nIn.addEventListener(“blur”,()=>{
-const nv=nIn.value.trim();
-if(nv&&nv!==g.name){const m=mesas.find(m=>m.id===mesa.id),gx=m.guests.find(x=>x.name===g.name);if(gx){if(m.captain===g.name)m.captain=nv;lastAction={type:“rename”,mesaId:mesa.id,oldName:g.name,newName:nv};gx.name=nv;g.name=nv;save();showUndo(“Nombre cambiado”);}}
-nIn.style.display=“none”;grpEl.style.display=””;eBtn.style.display=””;dBtn.style.display=””;nEl.textContent=g.name;nEl.style.display=””;
-});
-nIn.addEventListener(“keydown”,e=>{if(e.key===“Enter”)nIn.blur();if(e.key===“Escape”){nIn.value=g.name;nIn.blur();}});
-nEl.addEventListener(“click”,()=>{if(nIn.style.display===“block”)return;onGuestTap(g,mesa.id);});
-li.addEventListener(“click”,e=>{if(e.target===li)onGuestTap(g,mesa.id);});
-li.append(dot,nEl,nIn,capI,grpEl,eBtn,dBtn);
-ul.appendChild(li);
-});
-// add row
-const ar=document.createElement(“div”);ar.className=“add-guest-row”;
-const ai=document.createElement(“input”);ai.className=“add-guest-input”;ai.type=“text”;ai.placeholder=“Añadir invitado…”;
-const ab=document.createElement(“button”);ab.className=“add-guest-btn”;ab.textContent=”+ Añadir”;
-ab.addEventListener(“click”,()=>addGuest(mesa.id,ai));
-ai.addEventListener(“keydown”,e=>{if(e.key===“Enter”)addGuest(mesa.id,ai);});
-ar.append(ai,ab);ul.appendChild(ar);
-card.appendChild(ul);
-// move btn
-const mb=document.createElement(“button”);mb.className=“move-btn”;
-mb.textContent=“↪ Mover aquí — “+mesa.name.split(”–”)[0].trim();
-mb.addEventListener(“click”,()=>moveSelTo(mesa.id));
-card.appendChild(mb);
-pm.insertBefore(card,document.getElementById(“empty-msg”));
-});
-if(selGuest){document.body.classList.add(“has-sel”);selNameEl.innerHTML=“Moviendo: <em>”+selGuest.name+”</em>”;selBar.classList.add(“on”);}
-else{document.body.classList.remove(“has-sel”);selBar.classList.remove(“on”);}
+  pm.querySelectorAll(".mcard").forEach(e=>e.remove());
+  document.getElementById("tot").textContent=ms.reduce((s,m)=>s+m.guests.length,0)+" inv.";
+  ms.forEach(mesa=>{
+    const card=document.createElement("div");
+    card.className="mcard"+(mesa.presid?" presid":"")+(coll.has(mesa.id)?" coll":"");
+    if(sel){card.classList.add(sel.fid===mesa.id?"srcmesa":"droptgt");}
+    card.dataset.id=mesa.id;
+    // header
+    const hdr=document.createElement("div");hdr.className="mhdr";
+    const mic=document.createElement("span");mic.className="micon";mic.textContent=mesa.icon;
+    mic.addEventListener("click",e=>{e.stopPropagation();openMdl(mesa.id);});
+    const tw=document.createElement("div");tw.className="mtitlewrap";
+    const tEl=document.createElement("div");tEl.className="mtitle";tEl.textContent=mesa.name;
+    const tIn=document.createElement("input");tIn.className="mtinput";tIn.value=mesa.name;
+    tw.append(tEl,tIn);
+    tw.addEventListener("click",()=>toggleColl(mesa.id,card));
+    tIn.addEventListener("blur",()=>{const v=tIn.value.trim();if(v){ms.find(m=>m.id===mesa.id).name=v;sv();}tIn.style.display="none";tEl.style.display="";render();});
+    tIn.addEventListener("keydown",e=>{if(e.key==="Enter")tIn.blur();if(e.key==="Escape"){tIn.value=mesa.name;tIn.blur();}});
+    const cb=document.createElement("span");cb.className="capbadge";
+    cb.textContent=mesa.captain?("⭐ "+mesa.captain.split(" ")[0]):"Sin capitán";
+    if(!mesa.captain)cb.style.opacity=".35";
+    const cnt=document.createElement("span");cnt.className="mcnt";cnt.textContent=mesa.guests.length;
+    const eb=document.createElement("button");eb.className="hbtn";eb.textContent="✏️";
+    eb.addEventListener("click",e=>{e.stopPropagation();tEl.style.display="none";tIn.style.display="block";tIn.focus();tIn.select();});
+    const db=document.createElement("button");db.className="hbtn del";db.textContent="🗑";
+    db.addEventListener("click",e=>{e.stopPropagation();delMesa(mesa.id);});
+    const ch=document.createElement("span");ch.className="chev";ch.textContent="▾";
+    ch.addEventListener("click",e=>{e.stopPropagation();toggleColl(mesa.id,card);});
+    hdr.append(mic,tw,cb,cnt,eb,db,ch);card.appendChild(hdr);
+    // guests
+    const ul=document.createElement("ul");ul.className="glist";
+    ul.style.maxHeight=coll.has(mesa.id)?"0":(mesa.guests.length*43+58)+"px";
+    mesa.guests.forEach(g=>{
+      const isCap=mesa.captain===g.name;
+      const li=document.createElement("li");
+      li.className="gitem"+(sel&&sel.nm===g.name&&sel.fid===mesa.id?" sel":"")+(isCap?" iscap":"");
+      const dot=document.createElement("span");dot.className="gdot";dot.style.background=GC[g.group]||"#ccc";
+      const nEl=document.createElement("span");nEl.className="gnm";nEl.textContent=g.name;
+      const nIn=document.createElement("input");nIn.className="gninput";nIn.value=g.name;nIn.type="text";
+      const capI=document.createElement("span");capI.className="gcap";capI.textContent="⭐";
+      capI.addEventListener("click",e=>{e.stopPropagation();const m=ms.find(m=>m.id===mesa.id);m.captain=(m.captain===g.name)?null:g.name;sv();render();if(curTab==="plano")renderPlano();});
+      const grp=document.createElement("span");grp.className="ggrp";grp.textContent=g.group;
+      const gedit=document.createElement("button");gedit.className="gedit";gedit.textContent="✏️";
+      gedit.addEventListener("click",e=>{e.stopPropagation();nEl.style.display="none";grp.style.display="none";gedit.style.display="none";gdel.style.display="none";nIn.style.display="block";nIn.focus();nIn.select();});
+      const gdel=document.createElement("button");gdel.className="gdel";gdel.textContent="✕";
+      gdel.addEventListener("click",e=>{e.stopPropagation();delGuest(mesa.id,g.name);});
+      nIn.addEventListener("blur",()=>{
+        const nv=nIn.value.trim();
+        if(nv&&nv!==g.name){const m=ms.find(m=>m.id===mesa.id),gx=m.guests.find(x=>x.name===g.name);if(gx){if(m.captain===g.name)m.captain=nv;lastAct={type:"ren",mid:mesa.id,old:g.name,nw:nv};gx.name=nv;g.name=nv;sv();showToast("Nombre cambiado");}}
+        nIn.style.display="none";grp.style.display="";gedit.style.display="";gdel.style.display="";nEl.textContent=g.name;nEl.style.display="";
+      });
+      nIn.addEventListener("keydown",e=>{if(e.key==="Enter")nIn.blur();if(e.key==="Escape"){nIn.value=g.name;nIn.blur();}});
+      nEl.addEventListener("click",()=>{if(nIn.style.display==="block")return;onTap(g,mesa.id);});
+      li.addEventListener("click",e=>{if(e.target===li)onTap(g,mesa.id);});
+      li.append(dot,nEl,nIn,capI,grp,gedit,gdel);ul.appendChild(li);
+    });
+    // add row
+    const ar=document.createElement("div");ar.className="addrow";
+    const ai=document.createElement("input");ai.className="addinput";ai.type="text";ai.placeholder="Añadir invitado…";
+    const ab=document.createElement("button");ab.className="addbtn";ab.textContent="+ Añadir";
+    ab.addEventListener("click",()=>addGuest(mesa.id,ai));
+    ai.addEventListener("keydown",e=>{if(e.key==="Enter")addGuest(mesa.id,ai);});
+    ar.append(ai,ab);ul.appendChild(ar);
+    card.appendChild(ul);
+    const mb=document.createElement("button");mb.className="movebtn";
+    mb.textContent="↪ Mover aquí — "+mesa.name.split("–")[0].trim();
+    mb.addEventListener("click",()=>moveTo(mesa.id));
+    card.appendChild(mb);
+    pm.insertBefore(card,document.getElementById("emptymsg"));
+  });
+  const sb=document.getElementById("selbar");
+  if(sel){document.body.classList.add("hassel");document.getElementById("selnm").innerHTML="Moviendo: <em>"+sel.nm+"</em>";sb.classList.add("on");}
+  else{document.body.classList.remove("hassel");sb.classList.remove("on");}
 }
 
-function toggleCol(id,card){
-const ul=card.querySelector(”.guest-list”),m=mesas.find(m=>m.id===id);
-if(collapsed.has(id)){collapsed.delete(id);card.classList.remove(“collapsed”);ul.style.maxHeight=(m.guests.length*44+60)+“px”;}
-else{collapsed.add(id);card.classList.add(“collapsed”);ul.style.maxHeight=“0”;}
+function toggleColl(id,card){
+  const ul=card.querySelector(".glist"),m=ms.find(m=>m.id===id);
+  if(coll.has(id)){coll.delete(id);card.classList.remove("coll");ul.style.maxHeight=(m.guests.length*43+58)+"px";}
+  else{coll.add(id);card.classList.add("coll");ul.style.maxHeight="0";}
 }
-function deleteGuest(mesaId,name){
-if(!confirm(”¿Eliminar a "”+name+”"?”))return;
-const m=mesas.find(m=>m.id===mesaId),idx=m.guests.findIndex(g=>g.name===name);if(idx===-1)return;
-if(m.captain===name)m.captain=null;
-const[r]=m.guests.splice(idx,1);lastAction={type:“del-guest”,mesaId,guest:r,idx};save();showUndo(”"”+name+”" eliminado/a”);render();
+function delGuest(mid,name){
+  if(!confirm("¿Eliminar a \""+name+"\"?"))return;
+  const m=ms.find(m=>m.id===mid),idx=m.guests.findIndex(g=>g.name===name);if(idx<0)return;
+  if(m.captain===name)m.captain=null;
+  const[r]=m.guests.splice(idx,1);lastAct={type:"dg",mid,guest:r,idx};sv();showToast("\""+name+"\" eliminado/a");render();
 }
-function deleteMesa(id){
-const m=mesas.find(m=>m.id===id);
-if(!confirm(m.guests.length>0?”¿Eliminar "”+m.name+”" con “+m.guests.length+” invitado(s)?”:”¿Eliminar "”+m.name+”"?”))return;
-lastAction={type:“del”,mesa:deep(m),idx:mesas.findIndex(x=>x.id===id)};
-mesas=mesas.filter(x=>x.id!==id);save();showUndo(“Mesa eliminada”);render();
+function delMesa(id){
+  const m=ms.find(m=>m.id===id);
+  if(!confirm("¿Eliminar \""+m.name+"\"?"))return;
+  lastAct={type:"dm",mesa:d(m),idx:ms.findIndex(x=>x.id===id)};
+  ms=ms.filter(x=>x.id!==id);sv();showToast("Mesa eliminada");render();
 }
-function addGuest(mesaId,input){
-const name=input.value.trim();if(!name)return;
-mesas.find(m=>m.id===mesaId).guests.push({name,group:”—”});
-lastAction={type:“add”,mesaId,name};save();input.value=””;collapsed.delete(mesaId);showUndo(name+” añadido/a”);render();
+function addGuest(mid,inp){
+  const name=inp.value.trim();if(!name)return;
+  ms.find(m=>m.id===mid).guests.push({name,group:"—"});
+  lastAct={type:"ag",mid,name};sv();inp.value="";coll.delete(mid);showToast(name+" añadido/a");render();
 }
-function onGuestTap(guest,mesaId){
-if(selGuest){
-if(selGuest.name===guest.name&&selGuest.fromId===mesaId){selGuest=null;render();return;}
-if(selGuest.fromId!==mesaId){moveSelTo(mesaId);return;}
+function onTap(g,mid){
+  if(sel){
+    if(sel.nm===g.name&&sel.fid===mid){sel=null;render();return;}
+    if(sel.fid!==mid){moveTo(mid);return;}
+  }
+  sel={nm:g.name,grp:g.group,fid:mid};
+  coll.forEach(id=>{if(id!==mid)coll.delete(id);});render();
 }
-selGuest={name:guest.name,group:guest.group,fromId:mesaId};
-collapsed.forEach(id=>{if(id!==mesaId)collapsed.delete(id);});render();
+function moveTo(tid){
+  if(!sel||sel.fid===tid)return;
+  const from=ms.find(m=>m.id===sel.fid),to=ms.find(m=>m.id===tid);
+  const idx=from.guests.findIndex(g=>g.name===sel.nm);if(idx<0)return;
+  const[g]=from.guests.splice(idx,1);to.guests.push(g);
+  lastAct={type:"mv",guest:g,fid:sel.fid,tid};sv();showToast(g.name+" → "+to.name.split("–")[0].trim());sel=null;render();
 }
-function moveSelTo(toId){
-if(!selGuest||selGuest.fromId===toId)return;
-const from=mesas.find(m=>m.id===selGuest.fromId),to=mesas.find(m=>m.id===toId);
-const idx=from.guests.findIndex(g=>g.name===selGuest.name);if(idx===-1)return;
-const[g]=from.guests.splice(idx,1);to.guests.push(g);
-lastAction={type:“move”,guest:g,fromId:selGuest.fromId,toId};save();showUndo(g.name+” → “+to.name.split(”–”)[0].trim());selGuest=null;render();
-}
-document.getElementById(“cancel-sel-btn”).addEventListener(“click”,()=>{selGuest=null;render();});
+document.getElementById("cancelsel").addEventListener("click",()=>{sel=null;render();});
 
 // UNDO
-function showUndo(msg){
-document.getElementById(“undo-msg”).textContent=msg;document.getElementById(“undo-toast”).classList.add(“show”);
-clearTimeout(undoTimer);undoTimer=setTimeout(()=>document.getElementById(“undo-toast”).classList.remove(“show”),4500);
+function showToast(msg){
+  document.getElementById("toastmsg").textContent=msg;document.getElementById("toast").classList.add("show");
+  clearTimeout(utimer);utimer=setTimeout(()=>document.getElementById("toast").classList.remove("show"),4500);
 }
-document.getElementById(“undo-btn”).addEventListener(“click”,()=>{
-if(!lastAction)return;const a=lastAction;lastAction=null;
-if(a.type===“move”){const to=mesas.find(m=>m.id===a.toId),from=mesas.find(m=>m.id===a.fromId);const i=to.guests.findIndex(g=>g.name===a.guest.name);if(i!==-1){to.guests.splice(i,1);from.guests.push(a.guest);}}
-else if(a.type===“add”){const m=mesas.find(m=>m.id===a.mesaId);if(m){const i=m.guests.findIndex(g=>g.name===a.name);if(i!==-1)m.guests.splice(i,1);}}
-else if(a.type===“del”){mesas.splice(a.idx,0,a.mesa);}
-else if(a.type===“rename”){const m=mesas.find(m=>m.id===a.mesaId);if(m){const g=m.guests.find(g=>g.name===a.newName);if(g)g.name=a.oldName;}}
-else if(a.type===“del-guest”){const m=mesas.find(m=>m.id===a.mesaId);if(m)m.guests.splice(a.idx,0,a.guest);}
-save();document.getElementById(“undo-toast”).classList.remove(“show”);render();
+document.getElementById("undobtn").addEventListener("click",()=>{
+  if(!lastAct)return;const a=lastAct;lastAct=null;
+  if(a.type==="mv"){const to=ms.find(m=>m.id===a.tid),fr=ms.find(m=>m.id===a.fid);const i=to.guests.findIndex(g=>g.name===a.guest.name);if(i>=0){to.guests.splice(i,1);fr.guests.push(a.guest);}}
+  else if(a.type==="ag"){const m=ms.find(m=>m.id===a.mid);if(m){const i=m.guests.findIndex(g=>g.name===a.name);if(i>=0)m.guests.splice(i,1);}}
+  else if(a.type==="dm"){ms.splice(a.idx,0,a.mesa);}
+  else if(a.type==="ren"){const m=ms.find(m=>m.id===a.mid);if(m){const g=m.guests.find(g=>g.name===a.nw);if(g)g.name=a.old;}}
+  else if(a.type==="dg"){const m=ms.find(m=>m.id===a.mid);if(m)m.guests.splice(a.idx,0,a.guest);}
+  sv();document.getElementById("toast").classList.remove("show");render();
 });
 
 // SEARCH
-document.getElementById(“searchbox”).addEventListener(“input”,function(){
-const q=this.value.trim().toLowerCase();
-pm.querySelectorAll(”.mesa-card”).forEach(card=>{
-const items=card.querySelectorAll(”.guest-item”);let hit=false;
-items.forEach(li=>{const m=!q||li.textContent.toLowerCase().includes(q);li.classList.toggle(“hidden”,!m);if(m)hit=true;});
-card.classList.toggle(“search-hidden”,q&&!hit);
-if(q&&hit){const id=card.dataset.id,ul=card.querySelector(”.guest-list”),m=mesas.find(m=>m.id===id);collapsed.delete(id);card.classList.remove(“collapsed”);ul.style.maxHeight=(m.guests.length*44+60)+“px”;}
-});
-document.getElementById(“empty-msg”).style.display=(q&&!pm.querySelector(”.mesa-card:not(.search-hidden)”))?“block”:“none”;
+document.getElementById("searchbox").addEventListener("input",function(){
+  const q=this.value.trim().toLowerCase();
+  pm.querySelectorAll(".mcard").forEach(card=>{
+    const items=card.querySelectorAll(".gitem");let hit=false;
+    items.forEach(li=>{const m=!q||li.textContent.toLowerCase().includes(q);li.classList.toggle("hidden",!m);if(m)hit=true;});
+    card.classList.toggle("shidden",q&&!hit);
+    if(q&&hit){const id=card.dataset.id,ul=card.querySelector(".glist"),m=ms.find(m=>m.id===id);coll.delete(id);card.classList.remove("coll");ul.style.maxHeight=(m.guests.length*43+58)+"px";}
+  });
+  document.getElementById("emptymsg").style.display=(q&&!pm.querySelector(".mcard:not(.shidden)"))?"block":"none";
 });
 
-// RESET ALL
-document.getElementById(“fab-reset”).addEventListener(“click”,()=>{
-if(!confirm(”¿Restaurar la distribución original? Se perderán todos los cambios.”))return;
-localStorage.removeItem(SK);localStorage.removeItem(SPK);
-mesas=deep(INITIAL);planoPos={};selGuest=null;lastAction=null;collapsed.clear();render();
+// RESET
+document.getElementById("fab2").addEventListener("click",()=>{
+  if(!confirm("¿Restaurar la distribución original? Se perderán todos los cambios."))return;
+  localStorage.removeItem(SK);localStorage.removeItem(SPK);ms=d(INI);pp={};sel=null;lastAct=null;coll.clear();render();
 });
 
 // MODAL
-let modalId=null,pickedIcon=“🎉”;
+let mdlId=null,pickedIco="🎉";
 function buildGrid(){
-const g=document.getElementById(“icon-grid”);g.innerHTML=””;
-ICONS.forEach(ic=>{const d=document.createElement(“div”);d.className=“icon-opt”+(ic===pickedIcon?” picked”:””);d.textContent=ic;d.addEventListener(“click”,()=>{pickedIcon=ic;g.querySelectorAll(”.icon-opt”).forEach(x=>x.classList.remove(“picked”));d.classList.add(“picked”);});g.appendChild(d);});
+  const g=document.getElementById("icongrid");g.innerHTML="";
+  ICONS.forEach(ic=>{const el=document.createElement("div");el.className="iopt"+(ic===pickedIco?" picked":"");el.textContent=ic;el.addEventListener("click",()=>{pickedIco=ic;g.querySelectorAll(".iopt").forEach(x=>x.classList.remove("picked"));el.classList.add("picked");});g.appendChild(el);});
 }
-function openModal(existId){
-modalId=existId||null;const nw=document.getElementById(“name-wrap”),ni=document.getElementById(“modal-name”);
-if(existId){document.getElementById(“modal-title”).textContent=“Cambiar icono”;nw.style.display=“none”;pickedIcon=mesas.find(m=>m.id===existId).icon;}
-else{document.getElementById(“modal-title”).textContent=“Nueva mesa”;nw.style.display=””;ni.value=””;pickedIcon=“🎉”;}
-buildGrid();document.getElementById(“modal-overlay”).classList.add(“on”);if(!existId)setTimeout(()=>ni.focus(),120);
+function openMdl(existId){
+  mdlId=existId||null;const nw=document.getElementById("namewrap"),ni=document.getElementById("mdlname");
+  if(existId){document.getElementById("mdltitle").textContent="Cambiar icono";nw.style.display="none";pickedIco=ms.find(m=>m.id===existId).icon;}
+  else{document.getElementById("mdltitle").textContent="Nueva mesa";nw.style.display="";ni.value="";pickedIco="🎉";}
+  buildGrid();document.getElementById("moverlay").classList.add("on");if(!existId)setTimeout(()=>ni.focus(),120);
 }
-document.getElementById(“modal-confirm”).addEventListener(“click”,()=>{
-if(modalId){mesas.find(m=>m.id===modalId).icon=pickedIcon;save();}
-else{const name=document.getElementById(“modal-name”).value.trim();if(!name)return;mesas.push({id:uid(),name,icon:pickedIcon,captain:null,guests:[]});save();}
-document.getElementById(“modal-overlay”).classList.remove(“on”);render();
+document.getElementById("mdlok").addEventListener("click",()=>{
+  if(mdlId){ms.find(m=>m.id===mdlId).icon=pickedIco;sv();}
+  else{const name=document.getElementById("mdlname").value.trim();if(!name)return;ms.push({id:uid(),name,icon:pickedIco,captain:null,guests:[]});sv();}
+  document.getElementById("moverlay").classList.remove("on");render();
 });
-document.getElementById(“modal-cancel”).addEventListener(“click”,()=>document.getElementById(“modal-overlay”).classList.remove(“on”));
-document.getElementById(“modal-overlay”).addEventListener(“click”,e=>{if(e.target===document.getElementById(“modal-overlay”))document.getElementById(“modal-overlay”).classList.remove(“on”);});
-document.getElementById(“fab-add”).addEventListener(“click”,()=>openModal(null));
+document.getElementById("mdlcancel").addEventListener("click",()=>document.getElementById("moverlay").classList.remove("on"));
+document.getElementById("moverlay").addEventListener("click",e=>{if(e.target===document.getElementById("moverlay"))document.getElementById("moverlay").classList.remove("on");});
+document.getElementById("fab1").addEventListener("click",()=>openMdl(null));
 
 // PLANO
-const canvasWrap=document.getElementById(“plano-canvas-wrap”);
-const SIZE=90;
-function defaultPos(){
-const W=canvasWrap.clientWidth||360,H=canvasWrap.clientHeight||500;
-const cols=Math.max(1,Math.floor((W-10)/(SIZE+16)));
-const pos={};
-mesas.forEach((m,i)=>{const col=i%cols,row=Math.floor(i/cols);pos[m.id]={x:col*(SIZE+16)+10,y:row*(SIZE+20)+10};});
-return pos;
+const pcw=document.getElementById("pcwrap");
+const SZ=88;
+function defPos(){
+  const W=pcw.clientWidth||360,H=pcw.clientHeight||500;
+  const cols=Math.max(1,Math.floor((W-10)/(SZ+16)));
+  const p={};ms.forEach((m,i)=>{const c=i%cols,r=Math.floor(i/cols);p[m.id]={x:c*(SZ+16)+10,y:r*(SZ+20)+10};});
+  return p;
 }
 function renderPlano(){
-canvasWrap.innerHTML=””;
-const hasPosForAll=mesas.every(m=>planoPos[m.id]);
-if(!hasPosForAll){planoPos=defaultPos();savePos();}
-mesas.forEach((m,i)=>{
-if(!planoPos[m.id])planoPos[m.id]={x:10+i*10,y:10+i*10};
-const pos=planoPos[m.id],col=TC_COLORS[i%TC_COLORS.length];
-const el=document.createElement(“div”);el.className=“table-circle”;
-el.style.cssText=“width:”+SIZE+“px;height:”+SIZE+“px;background:”+col+”;left:”+pos.x+“px;top:”+pos.y+“px;”;
-const sn=m.name.replace(/Mesa\s+/i,“M”).split(”–”)[0].trim();
-const nd=document.createElement(“div”);nd.className=“tc-name”;nd.style.fontSize=sn.length>8?”.58rem”:”.68rem”;nd.textContent=sn;
-const cd=document.createElement(“div”);cd.className=“tc-captain”;cd.style.fontSize=”.58rem”;cd.textContent=m.captain?“⭐ “+m.captain.split(” “)[0]:””;
-const ctd=document.createElement(“div”);ctd.className=“tc-count”;ctd.style.fontSize=”.58rem”;ctd.textContent=m.guests.length+” 👤”;
-el.append(nd,cd,ctd);makeDraggable(el,m.id);canvasWrap.appendChild(el);
-});
+  pcw.innerHTML="";
+  if(!ms.every(m=>pp[m.id])){pp=defPos();svp();}
+  ms.forEach((m,i)=>{
+    if(!pp[m.id])pp[m.id]={x:10,y:10};
+    const pos=pp[m.id],col=TCC[i%TCC.length];
+    const el=document.createElement("div");el.className="tcircle";
+    el.style.cssText="width:"+SZ+"px;height:"+SZ+"px;background:"+col+";left:"+pos.x+"px;top:"+pos.y+"px;";
+    const sn=m.name.replace(/Mesa\s*/i,"M").split("–")[0].trim();
+    const nd=document.createElement("div");nd.className="tcnm";nd.style.fontSize=sn.length>8?".56rem":".66rem";nd.textContent=sn;
+    const cd=document.createElement("div");cd.className="tccap";cd.style.fontSize=".56rem";cd.textContent=m.captain?"⭐ "+m.captain.split(" ")[0]:"";
+    const ctd=document.createElement("div");ctd.className="tccnt";ctd.style.fontSize=".56rem";ctd.textContent=m.guests.length+" 👤";
+    el.append(nd,cd,ctd);drag(el,m.id);pcw.appendChild(el);
+  });
 }
-function renderPlanoIfVisible(){if(document.getElementById(“page-plano”).classList.contains(“active”))renderPlano();}
-function makeDraggable(el,mesaId){
-let sx,sy,sl,st,dragging=false;
-function start(cx,cy){
-const wr=canvasWrap.getBoundingClientRect();
-sx=cx-wr.left;sy=cy-wr.top;sl=planoPos[mesaId].x;st=planoPos[mesaId].y;
-dragging=true;el.classList.add(“dragging”);
+function drag(el,id){
+  let sx,sy,sl,st,on=false;
+  function start(cx,cy){const r=pcw.getBoundingClientRect();sx=cx-r.left;sy=cy-r.top;sl=pp[id].x;st=pp[id].y;on=true;el.classList.add("dragging");}
+  function move(cx,cy){if(!on)return;const r=pcw.getBoundingClientRect();const dx=(cx-r.left)-sx,dy=(cy-r.top)-sy;let nx=sl+dx,ny=st+dy;nx=Math.max(0,Math.min(r.width-SZ,nx));ny=Math.max(0,Math.min(r.height-SZ,ny));el.style.left=nx+"px";el.style.top=ny+"px";pp[id]={x:nx,y:ny};}
+  function end(){if(!on)return;on=false;el.classList.remove("dragging");svp();}
+  el.addEventListener("touchstart",e=>{e.preventDefault();const t=e.touches[0];start(t.clientX,t.clientY);},{passive:false});
+  el.addEventListener("touchmove",e=>{e.preventDefault();const t=e.touches[0];move(t.clientX,t.clientY);},{passive:false});
+  el.addEventListener("touchend",e=>{e.preventDefault();end();},{passive:false});
+  el.addEventListener("mousedown",e=>{start(e.clientX,e.clientY);e.preventDefault();});
+  window.addEventListener("mousemove",e=>{if(on)move(e.clientX,e.clientY);});
+  window.addEventListener("mouseup",()=>{if(on)end();});
 }
-function move(cx,cy){
-if(!dragging)return;
-const wr=canvasWrap.getBoundingClientRect();
-const cx2=cx-wr.left,cy2=cy-wr.top;
-let nx=sl+(cx2-sx),ny=st+(cy2-sy);
-nx=Math.max(0,Math.min(wr.width-SIZE,nx));
-ny=Math.max(0,Math.min(wr.height-SIZE,ny));
-el.style.left=nx+“px”;el.style.top=ny+“px”;
-planoPos[mesaId]={x:nx,y:ny};
-}
-function end(){if(!dragging)return;dragging=false;el.classList.remove(“dragging”);savePos();}
-el.addEventListener(“touchstart”,e=>{e.preventDefault();const t=e.touches[0];start(t.clientX,t.clientY);},{passive:false});
-el.addEventListener(“touchmove”,e=>{e.preventDefault();const t=e.touches[0];move(t.clientX,t.clientY);},{passive:false});
-el.addEventListener(“touchend”,e=>{e.preventDefault();end();},{passive:false});
-el.addEventListener(“mousedown”,e=>{start(e.clientX,e.clientY);e.preventDefault();});
-window.addEventListener(“mousemove”,e=>{move(e.clientX,e.clientY);});
-window.addEventListener(“mouseup”,end);
-}
-document.getElementById(“plano-reset-btn”).addEventListener(“click”,()=>{planoPos=defaultPos();savePos();renderPlano();});
+document.getElementById("preset").addEventListener("click",()=>{pp=defPos();svp();renderPlano();});
 
 render();
 </script>

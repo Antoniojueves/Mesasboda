@@ -7,30 +7,30 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mesas Boda">
-<meta name="theme-color" content="#3d1f00">
+<meta name="theme-color" content="#1c3c1c">
 <title>Mesas Boda</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#faf6f0;--parch:#f2ead8;--gold:#c9963a;--gold2:#e8c97a;--brown:#3d1f00;--brown2:#6b3a10;--rose:#c97a7a;--ink:#1a0a00;--card:#fffdf7;}
+:root{--cream:#f3f8f3;--parch:#deeede;--gold:#4e8b4e;--gold2:#8fbc8f;--brown:#1c3c1c;--brown2:#2e5e2e;--rose:#5a8a7a;--ink:#0a160a;--card:#f7fdf7;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:'Jost',sans-serif;background:#faf6f0;color:var(--ink);}
+body{font-family:'Jost',sans-serif;background:#f3f8f3;color:var(--ink);}
 
 /* HEADER — sticky, always solid */
-#hdr{background:#3d1f00;color:var(–gold2);padding:14px 14px 0;position:fixed;top:0;left:0;right:0;z-index:200;box-shadow:0 3px 16px rgba(0,0,0,.55);-webkit-transform:translateZ(0);transform:translateZ(0);}
+#hdr{background:#1c3c1c;color:var(–gold2);padding:14px 14px 0;position:fixed;top:0;left:0;right:0;z-index:200;box-shadow:0 3px 16px rgba(0,0,0,.55);-webkit-transform:translateZ(0);transform:translateZ(0);}
 #hdr h1{font-family:‘Cormorant Garamond’,serif;font-size:1.55rem;font-weight:300;letter-spacing:.05em;line-height:1.1;}
 #hdr h1 span{color:var(–gold);font-style:italic;}
 .hdr-sub{font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;opacity:.6;margin-top:1px;}
 #search-row{display:flex;align-items:center;gap:8px;margin-top:9px;}
-#searchbox{flex:1;border:1px solid rgba(201,150,58,.4);background:rgba(255,255,255,.08);color:var(–cream);border-radius:24px;padding:7px 14px;font-family:‘Jost’,sans-serif;font-size:.85rem;outline:none;}
+#searchbox{flex:1;border:1px solid rgba(78,139,78,.4);background:rgba(255,255,255,.08);color:var(–cream);border-radius:24px;padding:7px 14px;font-family:‘Jost’,sans-serif;font-size:.85rem;outline:none;}
 #searchbox::placeholder{color:rgba(250,246,240,.35);}
 #searchbox:focus{border-color:var(–gold);}
-#tot{font-size:.7rem;background:#c9963a;color:var(–brown);border-radius:20px;padding:4px 10px;font-weight:500;white-space:nowrap;flex-shrink:0;}
-.tabs{display:flex;border-top:1px solid rgba(201,150,58,.2);margin-top:10px;}
-.tab{flex:1;background:none;border:none;color:rgba(232,201,122,.55);font-family:‘Jost’,sans-serif;font-size:.82rem;padding:10px 4px 8px;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+#tot{font-size:.7rem;background:#4e8b4e;color:var(–brown);border-radius:20px;padding:4px 10px;font-weight:500;white-space:nowrap;flex-shrink:0;}
+.tabs{display:flex;border-top:1px solid rgba(78,139,78,.2);margin-top:10px;}
+.tab{flex:1;background:none;border:none;color:rgba(143,188,143,.55);font-family:‘Jost’,sans-serif;font-size:.82rem;padding:10px 4px 8px;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
 .tab.on{color:var(–gold2);border-bottom-color:var(–gold);}
 
 /* SEL BAR */
-#selbar{display:none;background:#6b3a10;color:#faf6f0;padding:9px 14px;font-size:.84rem;border-bottom:2px solid #c9963a;align-items:center;gap:10px;position:fixed;left:0;right:0;z-index:190;-webkit-transform:translateZ(0);transform:translateZ(0);}
+#selbar{display:none;background:#2e5e2e;color:#f3f8f3;padding:9px 14px;font-size:.84rem;border-bottom:2px solid #4e8b4e;align-items:center;gap:10px;position:fixed;left:0;right:0;z-index:190;-webkit-transform:translateZ(0);transform:translateZ(0);}
 #selbar.on{display:flex;}
 #selnm{flex:1;font-weight:500;}
 #selnm em{font-style:normal;color:var(–gold2);}
@@ -42,21 +42,21 @@ body{font-family:'Jost',sans-serif;background:#faf6f0;color:var(--ink);}
 #pg-plano.on{display:flex;}
 
 /* MESA CARDS */
-.mcard{background:#fffdf7;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(61,31,0,.14);overflow:hidden;border:1.5px solid rgba(201,150,58,.17);transition:border-color .2s,box-shadow .2s;}
-.mcard.droptgt{border-color:var(–gold);box-shadow:0 0 0 3px rgba(201,150,58,.25);}
-.mcard.presid{border-color:var(–gold);background:linear-gradient(135deg,#fffdf0,#fff8e1);}
+.mcard{background:#f7fdf7;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(28,60,28,.14);overflow:hidden;border:1.5px solid rgba(78,139,78,.17);transition:border-color .2s,box-shadow .2s;}
+.mcard.droptgt{border-color:var(–gold);box-shadow:0 0 0 3px rgba(78,139,78,.25);}
+.mcard.presid{border-color:var(–gold);background:linear-gradient(135deg,#f0faf0,#e8f5e8);}
 .mcard.shidden{display:none;}
-.mhdr{padding:10px 12px 8px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(201,150,58,.13);}
+.mhdr{padding:10px 12px 8px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(78,139,78,.13);}
 .micon{font-size:1.15rem;flex-shrink:0;cursor:pointer;padding:2px 3px;border-radius:5px;}
-.micon:active{background:#f2ead8;}
+.micon:active{background:#deeede;}
 .mtitlewrap{flex:1;min-width:0;cursor:pointer;}
 .mtitle{font-family:‘Cormorant Garamond’,serif;font-size:1rem;font-weight:600;color:var(–brown);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .mtinput{display:none;font-family:‘Cormorant Garamond’,serif;font-size:1rem;font-weight:600;color:var(–brown);border:none;border-bottom:2px solid var(–gold);background:transparent;outline:none;width:100%;padding:1px 0;}
-.capbadge{font-size:.6rem;background:rgba(201,150,58,.12);color:var(–brown2);border-radius:20px;padding:2px 6px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
-.mcnt{font-size:.67rem;background:#f2ead8;color:var(–brown2);border-radius:20px;padding:2px 7px;font-weight:500;flex-shrink:0;}
-.presid .mcnt{background:#e8c97a;color:var(–brown);}
+.capbadge{font-size:.6rem;background:rgba(78,139,78,.12);color:var(–brown2);border-radius:20px;padding:2px 6px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
+.mcnt{font-size:.67rem;background:#deeede;color:var(–brown2);border-radius:20px;padding:2px 7px;font-weight:500;flex-shrink:0;}
+.presid .mcnt{background:#8fbc8f;color:var(–brown);}
 .hbtn{background:none;border:none;cursor:pointer;font-size:.85rem;padding:3px 4px;border-radius:6px;color:#bbb;line-height:1;flex-shrink:0;}
-.hbtn:active{background:#f2ead8;}
+.hbtn:active{background:#deeede;}
 .hbtn.del{color:#d9a0a0;}
 .chev{color:var(–gold);font-size:.82rem;transition:transform .25s;cursor:pointer;padding:4px;flex-shrink:0;}
 .mcard.coll .chev{transform:rotate(-90deg);}
@@ -64,9 +64,9 @@ body{font-family:'Jost',sans-serif;background:#faf6f0;color:var(--ink);}
 .mcard.coll .glist{max-height:0!important;}
 .gitem{display:flex;align-items:center;padding:8px 11px;border-bottom:1px solid rgba(0,0,0,.04);gap:7px;}
 .gitem:last-child{border-bottom:none;}
-.gitem.sel{background:#fff3cd;border-left:3px solid var(–gold);padding-left:8px;}
+.gitem.sel{background:#d8edd8;border-left:3px solid var(–gold);padding-left:8px;}
 .gitem.hidden{display:none;}
-.gitem.iscap{background:rgba(201,150,58,.07);}
+.gitem.iscap{background:rgba(78,139,78,.07);}
 .gdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .gnm{flex:1;font-size:.86rem;cursor:pointer;}
 .gninput{display:none;flex:1;border:none;border-bottom:2px solid var(–gold);background:transparent;font-family:‘Jost’,sans-serif;font-size:.86rem;color:var(–ink);outline:none;padding:1px 0;min-width:0;}
@@ -77,22 +77,22 @@ body{font-family:'Jost',sans-serif;background:#faf6f0;color:var(--ink);}
 .gedit{color:#c8b89a;}
 .gdel{color:#d9a0a0;}
 .gdel:active{color:var(–rose);}
-.addrow{display:flex;align-items:center;gap:8px;padding:7px 11px 8px;border-top:1px dashed rgba(201,150,58,.18);}
-.addinput{flex:1;border:none;border-bottom:1px solid rgba(201,150,58,.3);background:transparent;font-family:‘Jost’,sans-serif;font-size:.82rem;color:var(–ink);padding:3px 2px;outline:none;}
+.addrow{display:flex;align-items:center;gap:8px;padding:7px 11px 8px;border-top:1px dashed rgba(78,139,78,.18);}
+.addinput{flex:1;border:none;border-bottom:1px solid rgba(78,139,78,.3);background:transparent;font-family:‘Jost’,sans-serif;font-size:.82rem;color:var(–ink);padding:3px 2px;outline:none;}
 .addinput::placeholder{color:#ccc;}
-.addbtn{background:#c9963a;color:var(–brown);border:none;border-radius:20px;padding:5px 11px;font-family:‘Jost’,sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;}
-.movebtn{display:none;width:100%;padding:10px;background:#3d1f00;color:var(–gold2);border:none;font-family:‘Cormorant Garamond’,serif;font-size:.95rem;cursor:pointer;}
-.movebtn:active{background:#6b3a10;}
+.addbtn{background:#4e8b4e;color:var(–brown);border:none;border-radius:20px;padding:5px 11px;font-family:‘Jost’,sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;}
+.movebtn{display:none;width:100%;padding:10px;background:#1c3c1c;color:var(–gold2);border:none;font-family:‘Cormorant Garamond’,serif;font-size:.95rem;cursor:pointer;}
+.movebtn:active{background:#2e5e2e;}
 body.hassel .movebtn{display:block;}
 body.hassel .srcmesa .movebtn{display:none;}
 .emptymsg{text-align:center;padding:36px 20px;color:#bbb;font-family:‘Cormorant Garamond’,serif;font-size:1.1rem;display:none;}
 
 /* PLANO */
-#plano-bar{background:#3d1f00;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+#plano-bar{background:#1c3c1c;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
 #plano-bar span{color:var(–gold2);font-size:.72rem;opacity:.65;flex:1;}
-.pbtn{background:rgba(255,255,255,.12);border:1px solid rgba(201,150,58,.3);color:var(–gold2);border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.75rem;cursor:pointer;}
-#pcwrap{position:relative;background:#faf6f0;overflow:hidden;}
-#pcwrap::before{content:’’;position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,150,58,.17) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;}
+.pbtn{background:rgba(255,255,255,.12);border:1px solid rgba(78,139,78,.3);color:var(–gold2);border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.75rem;cursor:pointer;}
+#pcwrap{position:relative;background:#f3f8f3;overflow:hidden;}
+#pcwrap::before{content:’’;position:absolute;inset:0;background-image:radial-gradient(circle,rgba(78,139,78,.17) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;}
 .tcircle{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none;touch-action:none;text-align:center;padding:5px;border:3px solid rgba(255,255,255,.65);box-shadow:0 3px 14px rgba(0,0,0,.25);cursor:grab;}
 .tcircle.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,.4);transform:scale(1.06);z-index:10;}
 .tcnm{font-family:‘Cormorant Garamond’,serif;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);line-height:1.1;}
@@ -100,34 +100,34 @@ body.hassel .srcmesa .movebtn{display:none;}
 .tccnt{font-family:‘Jost’,sans-serif;color:rgba(255,255,255,.72);line-height:1;}
 
 /* TOAST */
-#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:#3d1f00;color:var(–cream);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:.83rem;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:500;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:#1c3c1c;color:var(–cream);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:.83rem;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:500;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
 #toast.show{transform:translateX(-50%) translateY(0);}
-#undobtn{background:#c9963a;color:var(–brown);border:none;border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;}
+#undobtn{background:#4e8b4e;color:var(–brown);border:none;border-radius:20px;padding:5px 13px;font-family:‘Jost’,sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;}
 
 /* FAB */
 #fabrow{position:fixed;bottom:20px;right:14px;display:flex;flex-direction:column;gap:9px;z-index:300;align-items:flex-end;}
 #fabrow.hidden{display:none;}
 .fab{border:none;border-radius:50px;cursor:pointer;font-family:‘Jost’,sans-serif;font-weight:500;box-shadow:0 3px 14px rgba(0,0,0,.3);display:flex;align-items:center;gap:5px;transition:transform .15s;}
 .fab:active{transform:scale(.93);}
-#fab1{background:#3d1f00;color:var(–gold2);padding:11px 18px 11px 13px;font-size:.83rem;}
-#fab2{background:#c97a7a;color:#fff;padding:10px 16px 10px 12px;font-size:.81rem;}
+#fab1{background:#1c3c1c;color:var(–gold2);padding:11px 18px 11px 13px;font-size:.83rem;}
+#fab2{background:#5a8a7a;color:#fff;padding:10px 16px 10px 12px;font-size:.81rem;}
 
 /* MODAL */
 #moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;align-items:flex-end;justify-content:center;}
 #moverlay.on{display:flex;}
-#mdl{background:#fffdf7;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:500px;animation:sup .25s ease;}
+#mdl{background:#f7fdf7;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:500px;animation:sup .25s ease;}
 @keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
 #mdl h2{font-family:‘Cormorant Garamond’,serif;font-size:1.3rem;color:var(–brown);margin-bottom:14px;}
 .mlbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:#999;margin-bottom:4px;}
-.minput{width:100%;border:1px solid rgba(201,150,58,.4);border-radius:10px;padding:10px 13px;font-family:‘Jost’,sans-serif;font-size:.92rem;color:var(–ink);background:#faf6f0;outline:none;margin-bottom:13px;}
+.minput{width:100%;border:1px solid rgba(78,139,78,.4);border-radius:10px;padding:10px 13px;font-family:‘Jost’,sans-serif;font-size:.92rem;color:var(–ink);background:#f3f8f3;outline:none;margin-bottom:13px;}
 .minput:focus{border-color:var(–gold);}
 .icongrid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:16px;}
 .iopt{font-size:1.2rem;text-align:center;padding:6px 2px;border-radius:8px;cursor:pointer;border:2px solid transparent;}
-.iopt.picked{border-color:var(–gold);background:#f2ead8;}
+.iopt.picked{border-color:var(–gold);background:#deeede;}
 .macts{display:flex;gap:10px;}
 .mbtn{flex:1;border:none;border-radius:12px;padding:12px;font-family:‘Jost’,sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;}
-.mbtn.cancel{background:#f2ead8;color:var(–brown2);}
-.mbtn.ok{background:#3d1f00;color:var(–gold2);}
+.mbtn.cancel{background:#deeede;color:var(–brown2);}
+.mbtn.ok{background:#1c3c1c;color:var(–gold2);}
 </style>
 
 </head>
@@ -188,39 +188,36 @@ const GC={"Nosotros":"#FFD700","Familia Antonio Jim\u00e9nez":"#FFCBA4","Familia
 const TCC=["#7b6d8d","#5e8b7e","#9e7b5f","#6d7fa8","#8b5e6d","#7a9e6b","#a87a5e","#5e7a9e","#9e5e7a","#6b8b5e","#8d7b6d","#5f7b8b","#9e8b6b","#7b5e8d","#6d9e7b","#8b6d5e","#5e6d9e","#8b9e5e","#9e6d7b","#6b5e8d","#7a8b6d","#8d5e7b"];
 const ICONS=["🎉","🌸","💍","👑","🌿","🍾","🎶","🌺","💜","🧡","🌟","☀️","🌻","🍊","🏔️","🌴","🎊","🎸","🫶","💼","🤝","🌆","🌍","📄","🌙","🕊️","🦋","🌹","✨","🥂","🎀","🎁","🪷","🫧","🌈","⭐","🔮","🎠"];
 const INI=[
-{id:"presidencial",name:"Mesa Presidencial",icon:"👑",presid:true,captain:null,guests:[{name:"Serena G\u00f3mez Blanco",group:"Nosotros"},{name:"Antonio Jim\u00e9nez G\u00e1lvez",group:"Nosotros"},{name:"Mar\u00eda Pilar G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Rodr\u00edguez Vega",group:"Familia Serena G\u00f3mez"},{name:"Silvia Rivera",group:"Familia Serena G\u00f3mez"}]},
-{id:"trab_ant",name:"Mesa Trabajo Antonio",icon:"💼",captain:null,guests:[{name:"Rodrigo Spagna",group:"Trabajo Antonio"},{name:"Marta Roizo",group:"Trabajo Antonio"},{name:"Patricia Carrilero",group:"Trabajo Antonio"},{name:"Antonia Ballesteros",group:"Trabajo Antonio"},{name:"Jes\u00fas Diaz",group:"Trabajo Antonio"},{name:"Patricia Diaz",group:"Trabajo Antonio"}]},
-{id:"m01",name:"Mesa 1 \u2013 Amigos Barcelona A",icon:"🌆",captain:null,guests:[{name:"Isaac Guerrero Dotel",group:"Amigos Barcelona"},{name:"Moritz (Isaac)",group:"Amigos Barcelona"},{name:"Elena Esteban",group:"Amigos Barcelona"},{name:"\u00c1gatha Elena",group:"Amigos Barcelona"},{name:"Manel Garrig\u00f3",group:"Amigos Barcelona"},{name:"Arriana Leyva Hern\u00e1ndez",group:"Amigos Barcelona"},{name:"Mathi Dovale",group:"Amigos Barcelona"},{name:"(Novia de Mathi)",group:"Amigos Barcelona"}]},
-{id:"m02",name:"Mesa 2 \u2013 Amigos Barcelona B + Comunes",icon:"🤝",captain:null,guests:[{name:"Adriano Lamas",group:"Amigos Barcelona"},{name:"Mart\u00edn Luengo",group:"Amigos Barcelona"},{name:"Manuel C\u00e9spedes",group:"Amigos Comunes"},{name:"Andr\u00e9s Aldaz",group:"Amigos Comunes"},{name:"B\u00e1rbara Tassan",group:"Amigos Comunes"},{name:"Jordi Bruix",group:"Amigos Comunes"},{name:"Raiza Barnett",group:"Amigos Comunes"},{name:"Jose Bacca",group:"Amigos Comunes"}]},
-{id:"m03",name:"Mesa 3 \u2013 Comunes + Coru\u00f1a + Sueltos",icon:"🌍",captain:null,guests:[{name:"Fran M\u00e9ndez Gonz\u00e1lez",group:"Amigos Comunes"},{name:"In\u00e9s Salcines",group:"Amigos Coru\u00f1a"},{name:"Elena Del R\u00edo",group:"Amigos Coru\u00f1a"},{name:"Maximiliano Rosas",group:"Amigos Sueltos"},{name:"Debora (Maxi)",group:"Amigos Sueltos"},{name:"\u00c1ngel Molina",group:"Amigos Sueltos"},{name:"Angel Adan",group:"Amigos Tenerife"},{name:"Beatriz Garc\u00eda",group:"Amigos Tenerife"}]},
-{id:"m04",name:"Mesa 4 \u2013 Tenerife + Trabajo Serena",icon:"🌴",captain:null,guests:[{name:"Sergio (Medusa)",group:"Amigos Tenerife"},{name:"Ana (Sergio)",group:"Amigos Tenerife"},{name:"Luciana Comastri",group:"Trabajo Serena G\u00f3mez"},{name:"Felipe Ragel",group:"Trabajo Serena G\u00f3mez"},{name:"Pablo Carballo",group:"Trabajo Serena G\u00f3mez"},{name:"Eva",group:"Trabajo Serena G\u00f3mez"},{name:"Anabel Mac\u00edas Oviedo",group:"Amigos PDF"},{name:"Adri\u00e1n Fern\u00e1ndez",group:"Amigos PDF"}]},
-{id:"m05",name:"Mesa 5 \u2013 PDF + Ponferrada",icon:"📄",captain:null,guests:[{name:"Esther Mart\u00edn",group:"Amigos PDF"},{name:"Miguel Esther",group:"Amigos PDF"},{name:"Laura Mart\u00ednez",group:"Amigos PDF"},{name:"Joaqu\u00edn Ru\u00edz",group:"Amigos PDF"},{name:"Alba Mateos Garc\u00eda",group:"Amigos Ponferrada"},{name:"Juan Bacca",group:"Amigos Ponferrada"},{name:"Mar\u00eda J\u00e1\u00f1ez",group:"Amigos Ponferrada"},{name:"Lucia Susial",group:"Amigos Ponferrada"}]},
-{id:"m06",name:"Mesa 6 \u2013 Amigos Serena A",icon:"🌸",captain:null,guests:[{name:"Tamara Marqu\u00e9s Rodr\u00edguez",group:"Amigos Serena G\u00f3mez"},{name:"Isabel G\u00f3mez Bacariza",group:"Amigos Serena G\u00f3mez"},{name:"M\u00f3nica Voces Vega",group:"Amigos Serena G\u00f3mez"},{name:"\u00c1ngel Crespo",group:"Amigos Serena G\u00f3mez"},{name:"Noelia Perez",group:"Amigos Serena G\u00f3mez"},{name:"Pedro Buesa",group:"Amigos Serena G\u00f3mez"},{name:"Gonzalo Buesa P\u00e9rez",group:"Amigos Serena G\u00f3mez"},{name:"Victoria Basante",group:"Amigos Serena G\u00f3mez"}]},
-{id:"m07",name:"Mesa 7 \u2013 Amigos Serena B",icon:"🌿",captain:null,guests:[{name:"Eduardo Gete Puente",group:"Amigos Serena G\u00f3mez"},{name:"Paula Abraila",group:"Amigos Serena G\u00f3mez"},{name:"Marta Jutglar",group:"Amigos Serena G\u00f3mez"},{name:"Emiliano Mac\u00edas",group:"Amigos Serena G\u00f3mez"},{name:"Pilar Berges P\u00e9riz",group:"Amigos Serena G\u00f3mez"},{name:"Marta",group:"Amigos Serena G\u00f3mez"},{name:"Beatriz Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"},{name:"Antonio Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"}]},
-{id:"m08",name:"Mesa 8 \u2013 Familia Serena A",icon:"💜",captain:null,guests:[{name:"Rosa Mar\u00eda Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Mar\u00eda de los \u00c1ngeles Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Daniel Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Iker Blanco Rivera",group:"Familia Serena G\u00f3mez"},{name:"Alfredo G\u00f3mez \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Yann G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Alison G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Miguel \u00c1ngel Cabo \u00c1lvarez",group:"Familia Serena G\u00f3mez"}]},
-{id:"m09",name:"Mesa 9 \u2013 Amigos Granada A",icon:"🌺",captain:null,guests:[{name:"Alvaro Castillo",group:"Amigos Granada"},{name:"Claudia (Alvaro)",group:"Amigos Granada"},{name:"Andrea Delgado",group:"Amigos Granada"},{name:"\u00c1ngel Aguilera",group:"Amigos Granada"},{name:"Javier Pleguezuelos",group:"Amigos Granada"},{name:"(Novia de Javi)",group:"Amigos Granada"},{name:"Jes\u00fas Villar",group:"Amigos Granada"},{name:"Claudia (Jes\u00fas)",group:"Amigos Granada"}]},
-{id:"m10",name:"Mesa 10 \u2013 Amigos Granada B",icon:"🏔️",captain:null,guests:[{name:"Mario Sanchez Samos",group:"Amigos Granada"},{name:"Pilar Fern\u00e1ndez M\u00e1rquez",group:"Amigos Granada"},{name:"Javier Valenzuela Rivero",group:"Amigos Granada"},{name:"Teresa Muros",group:"Amigos Granada"},{name:"(Pareja de Teresa)",group:"Amigos Granada"},{name:"Miguel Angel Gonzalez Piqueras",group:"Amigos Granada"},{name:"N\u00e9stor Heras Jim\u00e9nez",group:"Amigos Granada"},{name:"Marina M\u00e1rmol",group:"Amigos Granada"}]},
-{id:"m11",name:"Mesa 11 \u2013 Amolaeras A",icon:"🎉",captain:null,guests:[{name:"Ram\u00f3n Mart\u00edn",group:"Amolaeras"},{name:"Olga Reyes",group:"Amolaeras"},{name:"Patricia Mart\u00edn",group:"Amolaeras"},{name:"Ayiyo (Patri)",group:"Amolaeras"},{name:"Angela Mart\u00edn Reyes",group:"Amolaeras"},{name:"Jose Carlos G\u00f3mez Rodr\u00edguez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Bautista",group:"Amolaeras"},{name:"Adelina del Moral",group:"Amolaeras"}]},
-{id:"m12",name:"Mesa 12 \u2013 Amolaeras B",icon:"🎊",captain:null,guests:[{name:"Mar\u00eda Jim\u00e9nez del Moral",group:"Amolaeras"},{name:"Manu (Mar\u00eda)",group:"Amolaeras"},{name:"Mariano Aguilera",group:"Amolaeras"},{name:"Adeli P\u00e9rez",group:"Amolaeras"},{name:"Bel\u00e9n Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Alberto Benitez",group:"Amolaeras"},{name:"Adeli Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Sergio L\u00f3pez",group:"Amolaeras"}]},
-{id:"m13",name:"Mesa 13 \u2013 Amolaeras C",icon:"🎶",captain:null,guests:[{name:"Juan Rey",group:"Amolaeras"},{name:"Juanillo Rey",group:"Amolaeras"},{name:"Juanfran Rodriguez",group:"Amolaeras"},{name:"Encarni Iba\u00f1ez",group:"Amolaeras"},{name:"Paula Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Mario Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Marina Jaubert",group:"Amolaeras"},{name:"Jose Espejo Montenegro",group:"Amolaeras"}]},
-{id:"m14",name:"Mesa 14 \u2013 Amolaeras D",icon:"🎸",captain:null,guests:[{name:"Encarni Ortega",group:"Amolaeras"},{name:"Pepe Espejo",group:"Amolaeras"},{name:"Pique",group:"Amolaeras"},{name:"Juan Manuel (Pique)",group:"Amolaeras"},{name:"Julia (Julilli)",group:"Amolaeras"},{name:"Jaime (Julilli)",group:"Amolaeras"},{name:"Juan (Julilli)",group:"Amolaeras"},{name:"Pepa Jim\u00e9nez",group:"Amolaeras"}]},
-{id:"m15",name:"Mesa 15 \u2013 Amolaeras E",icon:"🫶",captain:null,guests:[{name:"Ferm\u00edn Nogales",group:"Amolaeras"},{name:"Maria Jos\u00e9 Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Ferm\u00edn Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Mart\u00edn",group:"Amolaeras"},{name:"Mercedes (Anto\u00f1\u00edn)",group:"Amolaeras"},{name:"Mar\u00eda Jim\u00e9nez",group:"Amolaeras"},{name:"Rafa Rey Padre",group:"Amolaeras"},{name:"Carmen Novia Marina",group:"Amigos Granada"}]},
-{id:"m16",name:"Mesa 16 \u2013 Familia Antonio A",icon:"🧡",captain:null,guests:[{name:"Antonio Jos\u00e9 Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Azul Krywyk Berruezo",group:"Familia Antonio Jim\u00e9nez"},{name:"Cielo Krywyk Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"},{name:"Pili Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio Fabregat",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Rosa Espejo Montenegro",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"}]},
-{id:"m17",name:"Mesa 17 \u2013 Familia Antonio B",icon:"🍊",captain:null,guests:[{name:"Maria Jos\u00e9 Haro Escobar",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Isabel (Jose Antonio)",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Guillem P\u00e9rez Villanueva",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez (Padre)",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"}]},
-{id:"m18",name:"Mesa 18 \u2013 Familia Antonio C",icon:"🌻",captain:null,guests:[{name:"Gabi Morante G\u00f3mez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonia G\u00e1lvez Moreno",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Antonio G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Inma Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Pablo G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Trini G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonio Moreno G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
-{id:"m19",name:"Mesa 19 \u2013 Familia Antonio D",icon:"☀️",captain:null,guests:[{name:"Julia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Perea",group:"Familia Antonio Jim\u00e9nez"},{name:"Julia Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ander (Julia)",group:"Familia Antonio Jim\u00e9nez"},{name:"Daniel Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Javier Toledo",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
-{id:"m20",name:"Mesa 20 \u2013 Familia Antonio E + Serena B",icon:"🌟",captain:null,guests:[{name:"Lucas Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Manuel G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Alicia Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Yannick G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Levi G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ana \u00c1lvarez Garc\u00eda",group:"Familia Serena G\u00f3mez"},{name:"Jose Garc\u00eda \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Marta Dom\u00ednguez Corredera",group:"Familia Serena G\u00f3mez"},{name:"Iker Garc\u00eda Dom\u00ednguez",group:"Familia Serena G\u00f3mez"}]},
+{id:"presidencial",name:"Los Novios",icon:"👑",presid:true,captain:null,guests:[{name:"Serena G\u00f3mez Blanco",group:"Nosotros"},{name:"Antonio Jim\u00e9nez G\u00e1lvez",group:"Nosotros"},{name:"Mar\u00eda Pilar G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Rodr\u00edguez Vega",group:"Familia Serena G\u00f3mez"},{name:"Silvia Rivera",group:"Familia Serena G\u00f3mez"}]},
+{id:"trab_ant",name:"El Faro",icon:"💼",captain:null,guests:[{name:"Rodrigo Spagna",group:"Trabajo Antonio"},{name:"Marta Roizo",group:"Trabajo Antonio"},{name:"Patricia Carrilero",group:"Trabajo Antonio"},{name:"Antonia Ballesteros",group:"Trabajo Antonio"},{name:"Jes\u00fas Diaz",group:"Trabajo Antonio"},{name:"Patricia Diaz",group:"Trabajo Antonio"}]},
+{id:"m01",name:"Ibiza",icon:"🌆",captain:null,guests:[{name:"Isaac Guerrero Dotel",group:"Amigos Barcelona"},{name:"Moritz (Isaac)",group:"Amigos Barcelona"},{name:"Elena Esteban",group:"Amigos Barcelona"},{name:"\u00c1gatha Elena",group:"Amigos Barcelona"},{name:"Manel Garrig\u00f3",group:"Amigos Barcelona"},{name:"Arriana Leyva Hern\u00e1ndez",group:"Amigos Barcelona"},{name:"Mathi Dovale",group:"Amigos Barcelona"},{name:"(Novia de Mathi)",group:"Amigos Barcelona"}]},
+{id:"m02",name:"Formentera",icon:"🤝",captain:null,guests:[{name:"Adriano Lamas",group:"Amigos Barcelona"},{name:"Mart\u00edn Luengo",group:"Amigos Barcelona"},{name:"Manuel C\u00e9spedes",group:"Amigos Comunes"},{name:"Andr\u00e9s Aldaz",group:"Amigos Comunes"},{name:"B\u00e1rbara Tassan",group:"Amigos Comunes"},{name:"Jordi Bruix",group:"Amigos Comunes"},{name:"Raiza Barnett",group:"Amigos Comunes"},{name:"Jose Bacca",group:"Amigos Comunes"}]},
+{id:"m03",name:"Menorca",icon:"🌍",captain:null,guests:[{name:"Fran M\u00e9ndez Gonz\u00e1lez",group:"Amigos Comunes"},{name:"In\u00e9s Salcines",group:"Amigos Coru\u00f1a"},{name:"Elena Del R\u00edo",group:"Amigos Coru\u00f1a"},{name:"Maximiliano Rosas",group:"Amigos Sueltos"},{name:"Debora (Maxi)",group:"Amigos Sueltos"},{name:"\u00c1ngel Molina",group:"Amigos Sueltos"},{name:"Angel Adan",group:"Amigos Tenerife"},{name:"Beatriz Garc\u00eda",group:"Amigos Tenerife"}]},
+{id:"m04",name:"Mallorca",icon:"🌴",captain:null,guests:[{name:"Sergio (Medusa)",group:"Amigos Tenerife"},{name:"Ana (Sergio)",group:"Amigos Tenerife"},{name:"Luciana Comastri",group:"Trabajo Serena G\u00f3mez"},{name:"Felipe Ragel",group:"Trabajo Serena G\u00f3mez"},{name:"Pablo Carballo",group:"Trabajo Serena G\u00f3mez"},{name:"Eva",group:"Trabajo Serena G\u00f3mez"},{name:"Anabel Mac\u00edas Oviedo",group:"Amigos PDF"},{name:"Adri\u00e1n Fern\u00e1ndez",group:"Amigos PDF"}]},
+{id:"m05",name:"Costa Brava",icon:"📄",captain:null,guests:[{name:"Esther Mart\u00edn",group:"Amigos PDF"},{name:"Miguel Esther",group:"Amigos PDF"},{name:"Laura Mart\u00ednez",group:"Amigos PDF"},{name:"Joaqu\u00edn Ru\u00edz",group:"Amigos PDF"},{name:"Alba Mateos Garc\u00eda",group:"Amigos Ponferrada"},{name:"Juan Bacca",group:"Amigos Ponferrada"},{name:"Mar\u00eda J\u00e1\u00f1ez",group:"Amigos Ponferrada"},{name:"Lucia Susial",group:"Amigos Ponferrada"}]},
+{id:"m06",name:"La Tramontana",icon:"🌸",captain:null,guests:[{name:"Tamara Marqu\u00e9s Rodr\u00edguez",group:"Amigos Serena G\u00f3mez"},{name:"Isabel G\u00f3mez Bacariza",group:"Amigos Serena G\u00f3mez"},{name:"M\u00f3nica Voces Vega",group:"Amigos Serena G\u00f3mez"},{name:"\u00c1ngel Crespo",group:"Amigos Serena G\u00f3mez"},{name:"Noelia Perez",group:"Amigos Serena G\u00f3mez"},{name:"Pedro Buesa",group:"Amigos Serena G\u00f3mez"},{name:"Gonzalo Buesa P\u00e9rez",group:"Amigos Serena G\u00f3mez"},{name:"Victoria Basante",group:"Amigos Serena G\u00f3mez"}]},
+{id:"m07",name:"El Mistral",icon:"🌿",captain:null,guests:[{name:"Eduardo Gete Puente",group:"Amigos Serena G\u00f3mez"},{name:"Paula Abraila",group:"Amigos Serena G\u00f3mez"},{name:"Marta Jutglar",group:"Amigos Serena G\u00f3mez"},{name:"Emiliano Mac\u00edas",group:"Amigos Serena G\u00f3mez"},{name:"Pilar Berges P\u00e9riz",group:"Amigos Serena G\u00f3mez"},{name:"Marta",group:"Amigos Serena G\u00f3mez"},{name:"Beatriz Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"},{name:"Antonio Mor\u00e1n Delgado",group:"Familia Serena G\u00f3mez"}]},
+{id:"m08",name:"Cabo de Gata",icon:"💜",captain:null,guests:[{name:"Rosa Mar\u00eda Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Mar\u00eda de los \u00c1ngeles Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Daniel Blanco Delgado",group:"Familia Serena G\u00f3mez"},{name:"Iker Blanco Rivera",group:"Familia Serena G\u00f3mez"},{name:"Alfredo G\u00f3mez \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Yann G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Alison G\u00f3mez Gabaldon",group:"Familia Serena G\u00f3mez"},{name:"Miguel \u00c1ngel Cabo \u00c1lvarez",group:"Familia Serena G\u00f3mez"}]},
+{id:"m09",name:"Nerja",icon:"🌺",captain:null,guests:[{name:"Alvaro Castillo",group:"Amigos Granada"},{name:"Claudia (Alvaro)",group:"Amigos Granada"},{name:"Andrea Delgado",group:"Amigos Granada"},{name:"\u00c1ngel Aguilera",group:"Amigos Granada"},{name:"Javier Pleguezuelos",group:"Amigos Granada"},{name:"(Novia de Javi)",group:"Amigos Granada"},{name:"Jes\u00fas Villar",group:"Amigos Granada"},{name:"Claudia (Jes\u00fas)",group:"Amigos Granada"}]},
+{id:"m10",name:"Marbella",icon:"🏔️",captain:null,guests:[{name:"Mario Sanchez Samos",group:"Amigos Granada"},{name:"Pilar Fern\u00e1ndez M\u00e1rquez",group:"Amigos Granada"},{name:"Javier Valenzuela Rivero",group:"Amigos Granada"},{name:"Teresa Muros",group:"Amigos Granada"},{name:"(Pareja de Teresa)",group:"Amigos Granada"},{name:"Miguel Angel Gonzalez Piqueras",group:"Amigos Granada"},{name:"N\u00e9stor Heras Jim\u00e9nez",group:"Amigos Granada"},{name:"Marina M\u00e1rmol",group:"Amigos Granada"}]},
+{id:"m11",name:"Altea",icon:"🎉",captain:null,guests:[{name:"Ram\u00f3n Mart\u00edn",group:"Amolaeras"},{name:"Olga Reyes",group:"Amolaeras"},{name:"Patricia Mart\u00edn",group:"Amolaeras"},{name:"Ayiyo (Patri)",group:"Amolaeras"},{name:"Angela Mart\u00edn Reyes",group:"Amolaeras"},{name:"Jose Carlos G\u00f3mez Rodr\u00edguez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Bautista",group:"Amolaeras"},{name:"Adelina del Moral",group:"Amolaeras"}]},
+{id:"m12",name:"Calpe",icon:"🎊",captain:null,guests:[{name:"Mar\u00eda Jim\u00e9nez del Moral",group:"Amolaeras"},{name:"Manu (Mar\u00eda)",group:"Amolaeras"},{name:"Mariano Aguilera",group:"Amolaeras"},{name:"Adeli P\u00e9rez",group:"Amolaeras"},{name:"Bel\u00e9n Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Alberto Benitez",group:"Amolaeras"},{name:"Adeli Aguilera P\u00e9rez",group:"Amolaeras"},{name:"Sergio L\u00f3pez",group:"Amolaeras"}]},
+{id:"m13",name:"Denia",icon:"🎶",captain:null,guests:[{name:"Juan Rey",group:"Amolaeras"},{name:"Juanillo Rey",group:"Amolaeras"},{name:"Juanfran Rodriguez",group:"Amolaeras"},{name:"Encarni Iba\u00f1ez",group:"Amolaeras"},{name:"Paula Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Mario Rodriguez Iba\u00f1ez",group:"Amolaeras"},{name:"Marina Jaubert",group:"Amolaeras"},{name:"Jose Espejo Montenegro",group:"Amolaeras"}]},
+{id:"m14",name:"Moraira",icon:"🎸",captain:null,guests:[{name:"Encarni Ortega",group:"Amolaeras"},{name:"Pepe Espejo",group:"Amolaeras"},{name:"Pique",group:"Amolaeras"},{name:"Juan Manuel (Pique)",group:"Amolaeras"},{name:"Julia (Julilli)",group:"Amolaeras"},{name:"Jaime (Julilli)",group:"Amolaeras"},{name:"Juan (Julilli)",group:"Amolaeras"},{name:"Pepa Jim\u00e9nez",group:"Amolaeras"}]},
+{id:"m15",name:"Jávea",icon:"🫶",captain:null,guests:[{name:"Ferm\u00edn Nogales",group:"Amolaeras"},{name:"Maria Jos\u00e9 Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Ferm\u00edn Nogales Jim\u00e9nez",group:"Amolaeras"},{name:"Antonio Jim\u00e9nez Mart\u00edn",group:"Amolaeras"},{name:"Mercedes (Anto\u00f1\u00edn)",group:"Amolaeras"},{name:"Mar\u00eda Jim\u00e9nez",group:"Amolaeras"},{name:"Rafa Rey Padre",group:"Amolaeras"},{name:"Carmen Novia Marina",group:"Amigos Granada"}]},
+{id:"m16",name:"La Manga",icon:"🧡",captain:null,guests:[{name:"Antonio Jos\u00e9 Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Azul Krywyk Berruezo",group:"Familia Antonio Jim\u00e9nez"},{name:"Cielo Krywyk Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"},{name:"Pili Jim\u00e9nez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio Fabregat",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Rosa Espejo Montenegro",group:"Familia Antonio Jim\u00e9nez"},{name:"Rafael Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m17",name:"Cartagena",icon:"🍊",captain:null,guests:[{name:"Maria Jos\u00e9 Haro Escobar",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Antonio Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Isabel (Jose Antonio)",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Espejo",group:"Familia Antonio Jim\u00e9nez"},{name:"Guillem P\u00e9rez Villanueva",group:"Familia Antonio Jim\u00e9nez"},{name:"Loli Jim\u00e9nez Morilla",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez (Padre)",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Luis G\u00e1lvez Jim\u00e9nez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m18",name:"Alicante",icon:"🌻",captain:null,guests:[{name:"Gabi Morante G\u00f3mez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonia G\u00e1lvez Moreno",group:"Familia Antonio Jim\u00e9nez"},{name:"Juan Antonio G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Inma Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Sergio G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Pablo G\u00e1lvez Ortega",group:"Familia Antonio Jim\u00e9nez"},{name:"Trini G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Antonio Moreno G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m19",name:"Valencia",icon:"☀️",captain:null,guests:[{name:"Julia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Perea",group:"Familia Antonio Jim\u00e9nez"},{name:"Julia Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ander (Julia)",group:"Familia Antonio Jim\u00e9nez"},{name:"Daniel Perea G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Javier Toledo",group:"Familia Antonio Jim\u00e9nez"},{name:"Virginia Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"}]},
+{id:"m20",name:"Peñíscola",icon:"🌟",captain:null,guests:[{name:"Lucas Toledo G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Jose Manuel G\u00e1lvez G\u00e1lvez",group:"Familia Antonio Jim\u00e9nez"},{name:"Alicia Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Yannick G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Levi G\u00e1lvez Martinez",group:"Familia Antonio Jim\u00e9nez"},{name:"Ana \u00c1lvarez Garc\u00eda",group:"Familia Serena G\u00f3mez"},{name:"Jose Garc\u00eda \u00c1lvarez",group:"Familia Serena G\u00f3mez"},{name:"Marta Dom\u00ednguez Corredera",group:"Familia Serena G\u00f3mez"},{name:"Iker Garc\u00eda Dom\u00ednguez",group:"Familia Serena G\u00f3mez"}]},
 ];
 
-const SK="boda_v4",SPK="boda_pl_v1";
 const d=x=>JSON.parse(JSON.stringify(x));
 const uid=()=>"x"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-function ld(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s);}catch(e){}return d(INI);}
-function sv(){localStorage.setItem(SK,JSON.stringify(ms));}
-function ldp(){try{const s=localStorage.getItem(SPK);if(s)return JSON.parse(s);}catch(e){}return{};}
-function svp(){localStorage.setItem(SPK,JSON.stringify(pp));}
 
-let ms=ld(), sel=null, lastAct=null, utimer=null, coll=new Set(), pp=ldp();
+let ms=d(INI),sel=null,lastAct=null,utimer=null,coll=new Set(),pp={};
+function sv(){}
+function svp(){}
 
 // TABS
 let curTab="mesas";
@@ -401,7 +398,7 @@ document.getElementById("searchbox").addEventListener("input",function(){
 // RESET
 document.getElementById("fab2").addEventListener("click",()=>{
   if(!confirm("¿Restaurar la distribución original? Se perderán todos los cambios."))return;
-  localStorage.removeItem(SK);localStorage.removeItem(SPK);ms=d(INI);pp={};sel=null;lastAct=null;coll.clear();render();
+  ms=d(INI);pp={};sel=null;lastAct=null;coll.clear();render();sv();
 });
 
 // MODAL
@@ -427,7 +424,7 @@ document.getElementById("fab1").addEventListener("click",()=>openMdl(null));
 
 // PLANO
 const pcw=document.getElementById("pcwrap");
-const SZ=88;
+const SZ=68;
 function defPos(){
   const W=pcw.clientWidth||360,H=pcw.clientHeight||500;
   const cols=Math.max(1,Math.floor((W-10)/(SZ+16)));
@@ -463,19 +460,22 @@ function drag(el,id){
 }
 document.getElementById("preset").addEventListener("click",()=>{pp=defPos();svp();renderPlano();});
 
-render();
-
-// Fix fixed header offset
 function fixOffset(){
   const hh=document.getElementById("hdr").offsetHeight;
   document.getElementById("pg-mesas").style.paddingTop=(hh+4)+"px";
-  const sb=document.getElementById("selbar");
-  sb.style.top=hh+"px";
+  document.getElementById("selbar").style.top=hh+"px";
   document.getElementById("pg-plano").style.paddingTop=hh+"px";
 }
-fixOffset();
 window.addEventListener("resize",fixOffset);
 window.addEventListener("orientationchange",()=>setTimeout(fixOffset,200));
+
+
+// INIT
+render();
+fixOffset();
+
+
+
 </script>
 
 </body>
